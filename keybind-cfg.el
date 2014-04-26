@@ -1,0 +1,50 @@
+;; -*- emacs-lisp -*-
+
+;;; helm
+(define-key global-map "\C-cm" 'helm-imenu)
+(define-key global-map "\C-xb" 'helm-mini)
+(define-key global-map "\C-xp" 'helm-browse-project)
+(define-key global-map "\C-cb" 'helm-bookmarks)
+(define-key global-map "\C-co" 'helm-occur)
+
+;;; edit
+(define-key global-map "\C-x\C-n" 'template-new-file)
+(define-key global-map "\M-l" 'goto-line)
+(define-key global-map "\C-cw" 'copy-word)
+(define-key global-map "\C-cl" 'copy-line)
+  
+;;; org-mode
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cc" 'org-capture)
+
+;;; program
+(define-key global-map [C-up] 'c-beginning-of-defun)
+(define-key global-map [C-down] 'c-end-of-defun)
+(define-key global-map [f1] 'man-follow)
+
+;;; sr-speed-bar
+(define-key global-map [f2] 'sr-speedbar-toggle)
+
+;;; sdcv
+(define-key global-map [f5] 'sdcv-search-pointer+)
+(define-key global-map [f6] 'sdcv-search-input+)
+
+;;; workspace switch
+(define-key global-map [f12] 'switch-to-ansi-term)
+(define-key global-map [C-f12] 'switch-to-minicom)
+(define-key global-map [f10] 'revert-buffer-no-confirm)
+
+;;; ui modify
+(define-key global-map [f11] 'switch-fullscreen)
+
+;;; window move
+(define-key global-map [M-left] 'windmove-left)
+(define-key global-map [M-right] 'windmove-right)
+(define-key global-map [M-up] 'windmove-up)
+(define-key global-map [M-down] 'windmove-down)
+
+;;; match paren
+(define-key global-map "$" 'my-match-paren)
+
+(provide 'keybind-cfg)
