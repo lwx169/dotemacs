@@ -127,5 +127,7 @@
 (emms-standard)
 (emms-default-players)
 
+;;;; ace-jump-mode
+(require 'ace-jump-mode)
 
 (provide 'other-cfg)

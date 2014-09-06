@@ -47,4 +47,7 @@
 ;;; match paren
 (define-key global-map "$" 'my-match-paren)
 
+;;; ace-jump
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
 (provide 'keybind-cfg)
