@@ -122,5 +122,10 @@
   (interactive)
   (revert-buffer t t))
 
+;;;; emms
+(require 'emms-setup)
+(emms-standard)
+(emms-default-players)
+
 
 (provide 'other-cfg)
