@@ -122,11 +122,6 @@
   (interactive)
   (revert-buffer t t))
 
-;;;; emms
-(require 'emms-setup)
-(emms-standard)
-(emms-default-players)
-
 ;;;; ace-jump-mode
 (require 'ace-jump-mode)
 

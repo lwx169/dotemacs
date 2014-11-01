@@ -1,6 +1,6 @@
 ;; -*- emacs-lisp -*-
 
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 (require 'ui-cfg)
 (require 'basic-cfg)

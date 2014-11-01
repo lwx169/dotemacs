@@ -23,9 +23,6 @@
 (define-key global-map [C-down] 'c-end-of-defun)
 (define-key global-map [f1] 'man-follow)
 
-;;; sr-speed-bar
-(define-key global-map [f2] 'sr-speedbar-toggle)
-
 ;;; sdcv
 (define-key global-map [f5] 'sdcv-search-pointer+)
 (define-key global-map [f6] 'sdcv-search-input+)
@@ -36,7 +33,7 @@
 (define-key global-map [f10] 'revert-buffer-no-confirm)
 
 ;;; ui modify
-(define-key global-map [f11] 'switch-fullscreen)
+(define-key global-map [f11] 'toggle-frame-fullscreen)
 
 ;;; window move
 (define-key global-map [M-left] 'windmove-left)

@@ -69,14 +69,4 @@
     term-color-blue term-color-magenta term-color-cyan term-color-white])
 
 
-;;;;; functions
-(defun switch-fullscreen nil
-  (interactive)
-  (let* ((modes '(nil fullboth fullwidth fullheight))
-         (cm (cdr (assoc 'fullscreen (frame-parameters) ) ) )
-         (next (cadr (member cm modes) ) ) )
-    (modify-frame-parameters
-     (selected-frame)
-     (list (cons 'fullscreen next)))))
-
 (provide 'ui-cfg)

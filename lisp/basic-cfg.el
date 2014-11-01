@@ -10,7 +10,6 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/helm")
 (add-to-list 'load-path "~/.emacs.d/plugins/git-emacs")
 (add-to-list 'load-path "~/.emacs.d/plugins/git-modes")
-(add-to-list 'load-path "~/.emacs.d/plugins/emms/lisp")
 
 ;;; tab width set
 (setq tab-width 4)
@@ -59,8 +58,6 @@
                                        " # " " >>> ")))
 	  )
 
-;;; sr-speedbar
-(require 'sr-speedbar)
 
 ;; browser
 (setq browse-url-browser-function 'browse-url-generic
