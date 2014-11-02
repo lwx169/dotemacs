@@ -10,6 +10,7 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/helm")
 (add-to-list 'load-path "~/.emacs.d/plugins/git-emacs")
 (add-to-list 'load-path "~/.emacs.d/plugins/git-modes")
+(add-to-list 'load-path "~/.emacs.d/plugins/neotree")
 
 ;;; tab width set
 (setq tab-width 4)
@@ -62,5 +63,8 @@
 ;; browser
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "firefox")
+
+;;;; neotree
+(require 'neotree)
 
 (provide 'basic-cfg)
