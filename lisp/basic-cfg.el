@@ -67,4 +67,7 @@
 ;;;; neotree
 (require 'neotree)
 
+;;;; htmlize
+(require 'htmlize)
+
 (provide 'basic-cfg)
