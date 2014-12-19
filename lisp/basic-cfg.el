@@ -4,13 +4,8 @@
 (setq make-backup-file nil)
 (show-paren-mode t)
 (setq-default fill-column 100)
-
-;;; set load path
-(add-to-list 'load-path "~/.emacs.d/plugins/")
-(add-to-list 'load-path "~/.emacs.d/plugins/helm")
-(add-to-list 'load-path "~/.emacs.d/plugins/git-emacs")
-(add-to-list 'load-path "~/.emacs.d/plugins/git-modes")
-(add-to-list 'load-path "~/.emacs.d/plugins/neotree")
+(setq visible-bell t)
+(desktop-save-mode t)
 
 ;;; tab width set
 (setq tab-width 4)

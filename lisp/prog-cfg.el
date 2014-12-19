@@ -25,7 +25,8 @@
 (setq template-default-directories (cons "~/.emacs.d/templates/" template-default-directories))
 
 ;;; git-emacs
-(require 'git-emacs)
+(require 'git-emacs-autoloads)
+
 
 ;;; show which func
 (which-func-mode t)
