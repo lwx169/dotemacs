@@ -1391,16 +1391,15 @@ Push current point on mark ring and select the entry window."
   (interactive)
   (let ((file (get-text-property (point) 'cscope-file))
 	(line-number (get-text-property (point) 'cscope-line-number))
-	window)
-    (setq window (cscope-show-entry-internal file line-number t))
+	window)	
+    (setq window (cscope-show-entry-internal file line-number t (previous-window)))
     (if (windowp window)
 	(progn
 	  (select-window window)
 	  (sit-for 0)	;; Redisplay hack to allow delete-other-windows
 			;; to continue displaying the correct location.
-	  (delete-other-windows window)
-	  ))
-    ))
+	  )))
+  (cscope-quit))
 
 
 (defun cscope-select-entry-specified-window (window)
@@ -1441,7 +1440,7 @@ Point is not saved on mark ring."
   (interactive)
   (let ((file (get-text-property (point) 'cscope-file))
 	(line-number (get-text-property (point) 'cscope-line-number)))
-    (cscope-show-entry-internal file line-number nil nil t)
+    (cscope-show-entry-internal file line-number nil (previous-window) t)
     ))
 
 
