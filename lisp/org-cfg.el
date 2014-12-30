@@ -33,4 +33,7 @@
 ;;; set org files
 (setq org-agenda-files '("~/Ubox/Org/note.org" "~/Ubox/Org/todo.org"))
 
+;;; enable syntax hightlight in org-mode
+(setq org-src-fontify-natively t)
+
 (provide 'org-cfg)
