@@ -4,7 +4,7 @@
 (setq make-backup-file nil)
 (show-paren-mode t)
 (setq-default fill-column 100)
-(setq visible-bell t)
+;;(setq visible-bell nil)
 (desktop-save-mode t)
 
 ;;; tab width set
@@ -64,5 +64,9 @@
 
 ;;;; htmlize
 (require 'htmlize)
+
+;;;; sr-speedbar
+(require 'sr-speedbar)
+(setq sr-speedbar-right-side nil)
 
 (provide 'basic-cfg)

@@ -23,8 +23,11 @@
 (define-key global-map [C-down] 'c-end-of-defun)
 (define-key global-map [f1] 'man-follow)
 
-;;; neotree
-(define-key global-map [f2] 'neotree-toggle)
+;; ;;; neotree
+;; (define-key global-map [f2] 'neotree-toggle)
+
+;;; sr-speedbar
+(define-key global-map [f2] 'sr-speedbar-toggle)
 
 ;;; sdcv
 (define-key global-map [f5] 'sdcv-search-pointer+)
