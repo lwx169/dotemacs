@@ -125,4 +125,7 @@
 ;;;; ace-jump-mode
 (require 'ace-jump-mode)
 
+;;;; orgnote
+(require 'orgnote)
+
 (provide 'other-cfg)

@@ -27,7 +27,7 @@
 ;; (define-key global-map [f2] 'neotree-toggle)
 
 ;;; sr-speedbar
-(define-key global-map [f2] 'sr-speedbar-toggle)
+;; (define-key global-map [f2] 'sr-speedbar-toggle)
 
 ;;; sdcv
 (define-key global-map [f5] 'sdcv-search-pointer+)
