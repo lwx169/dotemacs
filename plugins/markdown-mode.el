@@ -1,6 +1,6 @@
 ;;; markdown-mode.el --- Emacs Major mode for Markdown-formatted text files
 
-;; Copyright (C) 2007-2013 Jason R. Blevins <jrblevin@sdf.org>
+;; Copyright (C) 2007-2014 Jason R. Blevins <jrblevin@sdf.org>
 ;; Copyright (C) 2007, 2009 Edward O'Connor <ted@oconnor.cx>
 ;; Copyright (C) 2007 Conal Elliott <conal@conal.net>
 ;; Copyright (C) 2008 Greg Bognar <greg_bognar@hms.harvard.edu>
@@ -70,7 +70,8 @@
 ;;
 ;; markdown-mode is also available in several package managers, including:
 ;;
-;;    * Debian and Ubuntu Linux: [emacs-goodies-el][]
+;;    * Debian Linux: [emacs-goodies-el][]
+;;    * Ubuntu Linux: [emacs-goodies-el][emacs-goodies-el-ubuntu]
 ;;    * RedHat and Fedora Linux: [emacs-goodies][]
 ;;    * NetBSD: [textproc/markdown-mode][]
 ;;    * Arch Linux (AUR): [emacs-markdown-mode-git][]
@@ -78,9 +79,10 @@
 ;;    * FreeBSD: [textproc/markdown-mode.el][freebsd-port]
 ;;
 ;;  [emacs-goodies-el]: http://packages.debian.org/emacs-goodies-el
-;;  [emacs-goodies]: https://admin.fedoraproject.org/pkgdb/acls/name/emacs-goodies
+;;  [emacs-goodies-el-ubuntu]: http://packages.ubuntu.com/search?keywords=emacs-goodies-el
+;;  [emacs-goodies]: https://apps.fedoraproject.org/packages/emacs-goodies
 ;;  [textproc/markdown-mode]: http://pkgsrc.se/textproc/markdown-mode
-;;  [emacs-markdown-mode-git]: http://aur.archlinux.org/packages.php?ID=30389
+;;  [emacs-markdown-mode-git]: https://aur.archlinux.org/packages/emacs-goodies-el/
 ;;  [macports-package]: https://trac.macports.org/browser/trunk/dports/editors/markdown-mode.el/Portfile
 ;;  [macports-ticket]: http://trac.macports.org/ticket/35716
 ;;  [freebsd-port]: http://svnweb.freebsd.org/ports/head/textproc/markdown-mode.el
@@ -535,6 +537,15 @@
 ;;     (default: `end`).  The set of location options is the same as
 ;;     for `markdown-reference-location'.
 ;;
+;;   * `comment-auto-fill-only-comments' - variable is made
+;;     buffer-local and set to `nil' by default.  In programming
+;;     language modes, when this variable is non-nil, only comments
+;;     will be filled by auto-fill-mode.  However, comments in
+;;     Markdown documents are rare and the most users probably intend
+;;     for the actual content of the document to be filled.  Making
+;;     this variable buffer-local allows `markdown-mode' to override
+;;     the default behavior induced when the global variable is non-nil.
+;;
 ;; Additionally, the faces used for syntax highlighting can be modified to
 ;; your liking by issuing `M-x customize-group RET markdown-faces`
 ;; or by using the "Markdown Faces" link at the bottom of the mode
@@ -597,7 +608,7 @@
 ;; the code block.  You will be prompted for the name of the language,
 ;; but may press enter to continue without naming a language.
 ;;
-;; For a more complete GitHub-flavored markdown experience, consider
+;; For a more complete GitHub Flavored Markdown experience, consider
 ;; adding README.md to your `auto-mode-alist':
 ;;
 ;;     (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
@@ -684,6 +695,8 @@
 ;;   * Chris Lott <chris@chrislott.org> for suggesting reference label
 ;;     completion.
 ;;   * Gunnar Franke <Gunnar.Franke@gmx.de> for a completion bug report.
+;;   * David Glasser <glasser@meteor.com> for a `paragraph-separate' fix.
+;;   * Daniel Brotsky <dev@brotsky.com> for better auto-fill defaults.
 
 ;;; Bugs:
 
@@ -1236,7 +1249,7 @@ Group 4 matches the text inside the delimiters.")
 
 (defconst markdown-regex-gfm-italic
   "\\(^\\|\\s-\\)\\(\\([*_]\\)\\([^ \\]\\3\\|[^ ]\\(.\\|\n[^\n]\\)*?[^\\ ]\\3\\)\\)"
-  "Regular expression for matching italic text in GitHub-flavored Markdown.
+  "Regular expression for matching italic text in GitHub Flavored Markdown.
 Underscores in words are not treated as special.")
 
 (defconst markdown-regex-blockquote
@@ -4543,7 +4556,7 @@ This is an exact copy of `line-number-at-pos' for use in emacs21."
            markdown-mode-font-lock-keywords-basic
            markdown-mode-font-lock-keywords-core))
     (setq font-lock-defaults '(markdown-mode-font-lock-keywords))
-    (font-lock-refresh-defaults)))
+    (when (fboundp 'font-lock-refresh-defaults) (font-lock-refresh-defaults))))
 
 (defun markdown-enable-math (&optional arg)
   "Toggle support for inline and display LaTeX math expressions.
@@ -4582,6 +4595,7 @@ if ARG is omitted or nil."
   (setq comment-start-skip "<!--[ \t]*")
   (make-local-variable 'comment-column)
   (setq comment-column 0)
+  (set (make-local-variable 'comment-auto-fill-only-comments) nil)
   ;; Font lock.
   (set (make-local-variable 'markdown-mode-font-lock-keywords) nil)
   (set (make-local-variable 'font-lock-defaults) nil)
@@ -4603,7 +4617,7 @@ if ARG is omitted or nil."
   (set (make-local-variable 'paragraph-start)
        "\f\\|[ \t]*$\\|[ \t]*[*+-] \\|[ \t]*[0-9]+\\.[ \t]\\|[ \t]*: ")
   (set (make-local-variable 'paragraph-separate)
-       "\\(?:[ \t\f]\\|.*  \\)*$")
+       "\\(?:[ \t\f]*\\|.*  \\)$")
   (set (make-local-variable 'adaptive-fill-first-line-regexp)
        "\\`[ \t]*>[ \t]*?\\'")
   (set (make-local-variable 'adaptive-fill-function)
@@ -4662,7 +4676,7 @@ if ARG is omitted or nil."
    ;; GFM features to match last
    (list
     (cons markdown-regex-gfm-italic '(2 markdown-italic-face))))
-  "Default highlighting expressions for GitHub-flavored Markdown mode.")
+  "Default highlighting expressions for GitHub Flavored Markdown mode.")
 
 ;;;###autoload
 (define-derived-mode gfm-mode markdown-mode "GFM"
@@ -4672,13 +4686,16 @@ if ARG is omitted or nil."
        '(gfm-font-lock-keywords))
   (auto-fill-mode 0)
   ;; Use visual-line-mode if available, fall back to longlines-mode:
-  (if (fboundp 'visual-line-mode)
-      (visual-line-mode 1)
-    (longlines-mode 1))
+  (cond ((fboundp 'visual-line-mode)
+         (visual-line-mode 1))
+        ((fboundp 'longlines-mode)
+         (longlines-mode 1)))
   ;; do the initial link fontification
   (markdown-fontify-buffer-wiki-links))
 
 
 (provide 'markdown-mode)
-
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 ;;; markdown-mode.el ends here
