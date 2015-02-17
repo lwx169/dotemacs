@@ -4,7 +4,7 @@
 (setq make-backup-file nil)
 (show-paren-mode t)
 (setq-default fill-column 100)
-;;(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
 (desktop-save-mode t)
 
 ;;; tab width set

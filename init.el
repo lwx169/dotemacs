@@ -15,3 +15,4 @@
 ;;(require 'mail-cfg)
 (require 'other-cfg)
 (require 'keybind-cfg)
+;;(require 'mac-cfg)
