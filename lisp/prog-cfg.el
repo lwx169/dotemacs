@@ -90,5 +90,8 @@
 ;;;;; dot
 (add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode))
 
+;;; lua
+(require 'lua-mode)
+(setq lua-indent-level 4)
 
 (provide 'prog-cfg)
