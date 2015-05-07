@@ -54,6 +54,11 @@
                                        " # " " >>> ")))
 	  )
 
+(eval-after-load 'eshell
+  '(require 'eshell-autojump nil t))
+
+(setq eshell-last-dir-ring-size 500)
+
 
 ;; browser
 (setq browse-url-browser-function 'browse-url-generic
