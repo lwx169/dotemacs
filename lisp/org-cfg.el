@@ -36,4 +36,8 @@
 ;;; enable syntax hightlight in org-mode
 (setq org-src-fontify-natively t)
 
+;;; calfw
+(require 'calfw)
+(require 'calfw-org)
+
 (provide 'org-cfg)
