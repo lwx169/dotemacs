@@ -28,6 +28,7 @@ echo "Set config file and plugins"
 ln -s $(pwd)/init.el ~/.emacs
 ln -s $(pwd)/lisp ~/.emacs.d/
 ln -s $(pwd)/plugins ~/.emacs.d/
+ln -s $(pwd)/themes ~/.emacs.d/
 ln -s $(pwd)/templates ~/.emacs.d/
 ln -s $(pwd)/ac-dict ~/.emacs.d/
 
