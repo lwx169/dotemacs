@@ -53,4 +53,7 @@
 ;;; ace-jump
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
+;;; ace-window
+(define-key global-map (kbd "C-x o") 'ace-window)
+
 (provide 'keybind-cfg)

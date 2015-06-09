@@ -125,6 +125,9 @@
 ;;;; ace-jump-mode
 (require 'ace-jump-mode)
 
+;;;; ace-window
+(require 'ace-window)
+
 ;;;; orgnote
 (require 'orgnote)
 
