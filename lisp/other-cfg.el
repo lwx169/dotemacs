@@ -131,6 +131,13 @@
 ;;;; orgnote
 (require 'orgnote)
 
+;;;; deft
+(require 'deft)
+(setq deft-text-mode 'org-mode)
+(setq deft-extension "org")
+(setq deft-directory "~/Org/Wiki")
+(setq deft-recursive t)
+
 ;;;; markdown
 (autoload 'markdown-mode "markdown-mode"
    "Major mode for editing Markdown files" t)
