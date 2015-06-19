@@ -98,4 +98,10 @@
 (require 'lua-mode)
 (setq lua-indent-level 4)
 
+
+;;;; python
+(autoload 'jedi:setup "jedi" nil t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
+
 (provide 'prog-cfg)

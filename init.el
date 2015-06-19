@@ -9,6 +9,11 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/magit")
 (add-to-list 'load-path "~/.emacs.d/plugins/neotree")
 (add-to-list 'load-path "~/.emacs.d/plugins/emacs-calfw")
+(add-to-list 'load-path "~/.emacs.d/plugins/deferred")
+(add-to-list 'load-path "~/.emacs.d/plugins/ctable")
+(add-to-list 'load-path "~/.emacs.d/plugins/epc")
+(add-to-list 'load-path "~/.emacs.d/plugins/jedi")
+(add-to-list 'load-path "~/.emacs.d/plugins/python-environment")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/base16-theme")
 
 (require 'basic-cfg)
