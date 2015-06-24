@@ -104,4 +104,29 @@
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
 
+
+;;;; auto detect indent mode
+(defun auto-detect-indent-mode()
+  (interactive)
+  (let ((sit-tabs-count       0)
+        (sit-whitespace-count 0))
+    (setq sit-tabs-count
+          (count-matches "^	" (point-min) (point-max) nil))
+    (setq sit-whitespace-count
+          (count-matches "^ " (point-min) (point-max) nil))
+    (if (>= sit-tabs-count sit-whitespace-count)
+        (progn
+          (message "tabs(%d) >= whitespaces(%d), indent with tab"
+                   sit-tabs-count sit-whitespace-count)
+          (setq indent-tabs-mode t))
+        (progn
+          (message "tabs(%d) < whitespaces(%d), indent with whitespace"
+                   sit-tabs-count sit-whitespace-count)
+          (setq indent-tabs-mode nil)))
+    )
+  )
+
+(add-hook 'c-mode-hook 'auto-detect-indent-mode)
+
+
 (provide 'prog-cfg)
