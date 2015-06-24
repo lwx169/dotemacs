@@ -113,7 +113,7 @@
     (setq sit-tabs-count
           (count-matches "^	" (point-min) (point-max) nil))
     (setq sit-whitespace-count
-          (count-matches "^ " (point-min) (point-max) nil))
+          (count-matches "^ [^\*]" (point-min) (point-max) nil))
     (if (>= sit-tabs-count sit-whitespace-count)
         (progn
           (message "tabs(%d) >= whitespaces(%d), indent with tab"
@@ -128,5 +128,16 @@
 
 (add-hook 'c-mode-hook 'auto-detect-indent-mode)
 
+(defun switch-indent-mode()
+  (interactive)
+  (if indent-tabs-mode
+      (progn
+        (setq indent-tabs-mode nil)
+        (message "switch: %s" "indent with whitespace"))
+      (progn
+        (setq indent-tabs-mode t)
+        (message "switch: %s" "indent with tab"))
+  )
+)
 
 (provide 'prog-cfg)
