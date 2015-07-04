@@ -34,8 +34,7 @@
 (define-key global-map [f6] 'sdcv-search-input+)
 
 ;;; workspace switch
-(define-key global-map [f12] 'switch-to-ansi-term)
-(define-key global-map [C-f12] 'switch-to-minicom)
+(define-key global-map [C-f12] 'my-multi-term-dedicated-toggle)
 (define-key global-map [f10] 'revert-buffer-no-confirm)
 
 ;;; ui modify

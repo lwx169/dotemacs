@@ -147,4 +147,22 @@
 ;;;; undo-tree
 (require 'undo-tree)
 
+
+;;;; multi-term
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")
+(defun my-multi-term-dedicated-toggle()
+  (interactive)
+  (if (equal "*MULTI-TERM-DEDICATED*" (buffer-name))
+	(multi-term-dedicated-toggle)
+	(progn
+	  (multi-term-dedicated-toggle)
+	  (multi-term-dedicated-select)
+	  )
+	)
+  )
+
+(equal "other-cfg." (buffer-name))
+(buffer-name)
+
 (provide 'other-cfg)
