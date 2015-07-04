@@ -162,7 +162,4 @@
 	)
   )
 
-(equal "other-cfg." (buffer-name))
-(buffer-name)
-
 (provide 'other-cfg)
