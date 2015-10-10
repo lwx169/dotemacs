@@ -105,6 +105,15 @@
 (setq jedi:complete-on-dot t)
 
 
+;;;; cmake
+(require 'cmake-mode)
+(setq auto-mode-alist
+	  (append '(("CMakeLists\\.txt\\'" . cmake-mode)
+				("\\.cmake\\'" . cmake-mode))
+			  auto-mode-alist))
+
+
+
 ;;;; auto detect indent mode
 (defun auto-detect-indent-mode()
   (interactive)
