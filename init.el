@@ -4,6 +4,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/plugins/")
 (add-to-list 'load-path "~/.emacs.d/plugins/helm")
+(add-to-list 'load-path "~/.emacs.d/plugins/async")
 (add-to-list 'load-path "~/.emacs.d/plugins/git-emacs")
 (add-to-list 'load-path "~/.emacs.d/plugins/git-modes")
 (add-to-list 'load-path "~/.emacs.d/plugins/magit")
