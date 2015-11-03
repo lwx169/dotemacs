@@ -23,6 +23,10 @@
 ;;; helm
 (require 'helm-config)
 (require 'helm-ls-git)
+(setq  helm-boring-buffer-regexp-list
+	   '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area"
+		 "\\*Minibuf" "\\*magit" "\\*scratch"
+		 "\\*Buffer" "\\*IBuffer" "\\*Message"))
 
 ;;; sdcv
 (require 'sdcv)
