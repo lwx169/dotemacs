@@ -33,8 +33,7 @@
 (define-key global-map [f5] 'sdcv-search-pointer+)
 (define-key global-map [f6] 'sdcv-search-input+)
 
-;;; workspace switc
-(define-key global-map [f12] 'multi-term-next)
+;;; workspace switch
 (define-key global-map [C-f12] 'my-multi-term-dedicated-toggle)
 (define-key global-map [f10] 'revert-buffer-no-confirm)
 
