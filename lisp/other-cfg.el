@@ -135,8 +135,9 @@
 (require 'deft)
 (setq deft-text-mode 'org-mode)
 (setq deft-extension "org")
-(setq deft-directory "~/Org/Wiki")
+(setq deft-directory "~/Org/Note")
 (setq deft-recursive t)
+(setq deft-auto-save-interval 0)
 
 ;;;; markdown
 (autoload 'markdown-mode "markdown-mode"

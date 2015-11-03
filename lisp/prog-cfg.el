@@ -112,6 +112,17 @@
 				("\\.cmake\\'" . cmake-mode))
 			  auto-mode-alist))
 
+;;;; hideif
+(require 'hideif)
+(setq hide-ifdef-initially t)
+(setq hide-ifdef-shadow nil)
+
+;; (add-hook 'c-mode-hook
+;; 		  (lambda ()
+;; 			(setq hide-ifdef-mode t)
+;; 			(setq hide-ifdef-shadow nil)
+;; 			(hide-ifdefs)
+;; 			))
 
 
 ;;;; auto detect indent mode
@@ -136,6 +147,7 @@
   )
 
 (add-hook 'c-mode-hook 'auto-detect-indent-mode)
+(add-hook 'c++-mode-hook 'auto-detect-indent-mode)
 
 (defun switch-indent-mode()
   (interactive)

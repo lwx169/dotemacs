@@ -7,7 +7,11 @@
 (setq org-agenda-span 'day)
 (setq org-startup-with-inline-images t)
 (setq org-todo-keywords
-      '((sequence "TDO(t)" "ING(i!)" "BUG(b)" "PLA" "|" "DNE(d!)" "PAU(p!)" "CNL(c!)" "FIX(f!)" "NIL(n!)")))
+      '((sequence "PROJ(p)" "READ(r)" "SOUR(s)" "TODO(t!)" "|" "FINS(f!)" "DONE(d!)" "PAUS(u!)" "CANC(c!)")))
+
+;;; workflow: PROJ -----> TASK --> TODO --> DONE -----------------------> FINS
+;;;                  \--> TASK --> TODO --> CANC --------------------/
+;;;                  \--> TASK --> TODO --> PAUS --> TODO --> DONE--/
 
 ;;; set prioprity level
 (setq org-highest-priority ?A)
@@ -23,15 +27,8 @@
     (?E . (:foreground "SkyBlue" :weight bold))
 ))
 
-;;; set note-capture
-(setq org-default-notes-file "~/Ubox/Org/note.org")
-(setq org-capture-templates
-      '(("n" "Note" entry (file+headline "~/Ubox/Org/note.org" "Note")
-             "* %^{TITLE} %u %^g\n  %? ")
-		))
-
 ;;; set org files
-(setq org-agenda-files '("~/Ubox/Org/note.org" "~/Ubox/Org/todo.org"))
+(setq org-agenda-files '("~/Org/Todo/projects.org" "~/Share/TP-LINK/work.org"))
 
 ;;; enable syntax hightlight in org-mode
 (setq org-src-fontify-natively t)

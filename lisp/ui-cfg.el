@@ -11,7 +11,7 @@
 (display-time-mode)
 
 ;;; set color theme
-(load-theme 'wombat)
+(load-theme 'base16-chalk-dark t)
 
 ;;; set font
 (set-default-font "Droid Sans Mono-11")
