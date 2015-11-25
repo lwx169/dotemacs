@@ -5,7 +5,7 @@
 (define-key global-map "\C-xb" 'helm-mini)
 (define-key global-map "\C-xp" 'helm-browse-project)
 (define-key global-map "\C-cb" 'helm-bookmarks)
-(define-key global-map "\C-co" 'helm-occur)
+(define-key global-map "\C-co" 'helm-swoop)
 
 ;;; edit
 (define-key global-map "\C-x\C-n" 'template-new-file)

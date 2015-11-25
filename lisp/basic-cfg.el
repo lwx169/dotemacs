@@ -23,6 +23,7 @@
 ;;; helm
 (require 'helm-config)
 (require 'helm-ls-git)
+(require 'helm-swoop)
 (setq  helm-boring-buffer-regexp-list
 	   '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area"
 		 "\\*Minibuf" "\\*magit" "\\*scratch"
