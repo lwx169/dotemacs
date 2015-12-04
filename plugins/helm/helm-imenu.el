@@ -91,6 +91,8 @@
 (defvar helm-cached-imenu-tick nil)
 (make-variable-buffer-local 'helm-cached-imenu-tick)
 
+(defvar helm-imenu-last-point nil)
+
 
 (defvar helm-source-imenu nil "See (info \"(emacs)Imenu\")")
 (defvar helm-source-imenu-all nil)
@@ -233,6 +235,7 @@
 (defun helm-imenu ()
   "Preconfigured `helm' for `imenu'."
   (interactive)
+  (setq helm-imenu-last-point (point))
   (unless helm-source-imenu
     (setq helm-source-imenu
           (helm-make-source "Imenu" 'helm-imenu-source
@@ -264,6 +267,15 @@
                                    helm-sources-using-default-as-input)
                        str)
           :buffer "*helm imenu all*")))
+
+;;;###autoload
+(defun helm-imenu-back-to-last-point()
+  "Jump to previous point before do helm-imenu"
+  (interactive)
+  (if helm-imenu-last-point
+      (goto-char helm-imenu-last-point))
+  (setq helm-imenu-last-point nil))
+
 
 (provide 'helm-imenu)
 

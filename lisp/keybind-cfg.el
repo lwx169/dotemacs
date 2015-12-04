@@ -1,11 +1,11 @@
 ;; -*- emacs-lisp -*-
 
 ;;; helm
-(define-key global-map "\C-cm" 'helm-imenu)
+(define-key global-map "\C-cm" 'helm-jump-use-imenu)
+(define-key global-map "\C-co" 'helm-jump-use-swoop)
+(define-key global-map "\C-cb" 'helm-jump-back)
 (define-key global-map "\C-xb" 'helm-mini)
 (define-key global-map "\C-xp" 'helm-browse-project)
-(define-key global-map "\C-cb" 'helm-bookmarks)
-(define-key global-map "\C-co" 'helm-swoop)
 
 ;;; edit
 (define-key global-map "\C-x\C-n" 'template-new-file)

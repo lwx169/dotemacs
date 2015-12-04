@@ -162,4 +162,32 @@
 	)
   )
 
+;;;; erc
+(setq erc-ignore-list nil)
+(setq erc-hide-list
+      '("JOIN" "PART" "QUIT" "MODE"))
+
+;;;; helm-jump-back
+(setq helm-jump-action nil)
+
+(defun helm-jump-use-imenu()
+  (interactive)
+  (setq helm-jump-action "imenu")
+  (helm-imenu))
+
+(defun helm-jump-use-swoop()
+  (interactive)
+  (setq helm-jump-action "swoop")
+  (helm-swoop))
+
+(defun helm-jump-back()
+  (interactive)
+  (cond
+   ((string-equal helm-jump-action "imenu") (helm-imenu-back-to-last-point))
+   ((string-equal helm-jump-action "swoop") (helm-swoop-back-to-last-point)))
+  (setq helm-jump-action nil))
+
+;;;; undo-tree
+(require 'undo-tree)
+
 (provide 'other-cfg)
