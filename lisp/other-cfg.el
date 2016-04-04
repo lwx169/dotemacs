@@ -190,4 +190,7 @@
 ;;;; undo-tree
 (require 'undo-tree)
 
+;;;; ccrypt
+(require 'ps-ccrypt)
+
 (provide 'other-cfg)
