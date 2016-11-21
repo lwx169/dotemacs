@@ -98,12 +98,14 @@
 (require 'lua-mode)
 (setq lua-indent-level 4)
 
-
 ;;;; python
 (autoload 'jedi:setup "jedi" nil t)
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
 
+;;;; rust
+(autoload 'rust-mode "rust-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 
 ;;;; cmake
 (require 'cmake-mode)

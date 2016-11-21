@@ -28,6 +28,10 @@
 		  'linum-mode)
 (add-hook 'emacs-lisp-mode-hook
 		  'linum-mode)
+(add-hook 'lua-mode-hook
+		  'linum-mode)
+(add-hook 'rust-mode-hook
+		  'linum-mode)
 
 ;;; hide dos '^M' character
 (defun remove-dos-eol ()
