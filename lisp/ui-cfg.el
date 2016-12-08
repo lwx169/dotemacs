@@ -13,9 +13,7 @@
 ;;; set color theme
 (load-theme 'wombat)
 
-;;; set font
-(set-default-font "Droid Sans Mono-11")
-(set-fontset-font "fontset-default" 'chinese-gb2312 "文泉驿微米黑-12")
+;;; set font in os related config
 
 ;;; window split
 (setq split-width-threshold nil)
