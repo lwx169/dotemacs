@@ -16,8 +16,8 @@
 (require 'auto-highlight-symbol-config)
 
 ;;; yasnippet
-(require 'yasnippet-bundle)
-(setf yas/indent-line 'fixed)
+(require 'yasnippet)
+(yas-global-mode 1)
 
 ;;; template
 (require 'template)
