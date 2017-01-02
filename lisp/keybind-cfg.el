@@ -6,6 +6,7 @@
 (define-key global-map "\C-cb" 'helm-jump-back)
 (define-key global-map "\C-xb" 'helm-mini)
 (define-key global-map "\C-xp" 'helm-browse-project)
+(define-key global-map "\C-xg" 'helm-grep-do-git-grep)
 
 ;;; edit
 (define-key global-map "\C-x\C-n" 'template-new-file)
