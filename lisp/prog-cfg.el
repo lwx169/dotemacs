@@ -97,6 +97,8 @@
 (autoload 'jedi:setup "jedi" nil t)
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
+(setq python-indent-offset 4)
+(setq python-indent-guess-indent-offset nil)
 
 ;;;; rust
 (autoload 'rust-mode "rust-mode" nil t)
