@@ -36,6 +36,19 @@
 ;;; enable syntax hightlight in org-mode
 (setq org-src-fontify-natively t)
 
+;;; org-draft
+(setq org-draft-path "~/.emacs.d/.draft.org")
+(setq org-draft-sync-path "~/Dropbox/Org/draft.org")
+(defun org-draft()
+  (interactive)
+  (find-file org-draft-path))
+(defun org-draft-sync()
+  (interactive)
+  (message "syncing draft files ...")
+  (if (file-exists-p org-draft-sync-path)
+      (delete-file org-draft-sync-path))
+  (copy-file org-draft-path org-draft-sync-path))
+
 ;;; calfw
 (require 'calfw)
 (require 'calfw-org)
