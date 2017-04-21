@@ -16,6 +16,7 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/epc")
 (add-to-list 'load-path "~/.emacs.d/plugins/jedi")
 (add-to-list 'load-path "~/.emacs.d/plugins/python-environment")
+(add-to-list 'load-path "~/.emacs.d/plugins/plantuml")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/base16-theme")
 
 (require 'basic-cfg)
