@@ -23,21 +23,24 @@
     (?E . (:foreground "SkyBlue" :weight bold))
 ))
 
+;;; load agenda from Org directory
+(setq org-agenda-file-path "~/Org/.hide/agenda.el")
+(defun load-org-agenda()
+  (interactive)
+  (if (file-exists-p org-agenda-file-path)
+      (load org-agenda-file-path)
+    (message "org agent file not existed!"))
+  )
+(load-org-agenda)
+
 ;;; enable syntax hightlight in org-mode
 (setq org-src-fontify-natively t)
 
 ;;; org-draft
-(setq org-draft-path "~/.emacs.d/.draft.org")
-(setq org-draft-sync-path "~/Org/draft.org")
+(setq org-draft-path "~/Org/.hide/draft.org")
 (defun org-draft()
   (interactive)
   (find-file org-draft-path))
-(defun org-draft-sync()
-  (interactive)
-  (message "syncing draft files ...")
-  (if (file-exists-p org-draft-sync-path)
-      (delete-file org-draft-sync-path))
-  (copy-file org-draft-path org-draft-sync-path))
 
 ;;; calfw
 (require 'calfw)
