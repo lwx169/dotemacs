@@ -7,7 +7,7 @@
 (setq org-agenda-span 'day)
 (setq org-startup-with-inline-images t)
 (setq org-todo-keywords
-      '((sequence "TDO(t)" "ING(i!)" "BUG(b)" "PLA" "|" "DNE(d!)" "PAU(p!)" "CNL(c!)" "FIX(f!)" "NIL(n!)")))
+      '((sequence "TODO(t)" "TASK(a)" "DING(i!)" "PAUS(p!)" "BUG!(b!)" "|" "DONE(d!)" "CANC(c!)" "FIX!(f!)")))
 
 ;;; set prioprity level
 (setq org-highest-priority ?A)
@@ -23,22 +23,12 @@
     (?E . (:foreground "SkyBlue" :weight bold))
 ))
 
-;;; set note-capture
-(setq org-default-notes-file "~/Ubox/Org/note.org")
-(setq org-capture-templates
-      '(("n" "Note" entry (file+headline "~/Ubox/Org/note.org" "Note")
-             "* %^{TITLE} %u %^g\n  %? ")
-		))
-
-;;; set org files
-(setq org-agenda-files '("~/Ubox/Org/note.org" "~/Ubox/Org/todo.org"))
-
 ;;; enable syntax hightlight in org-mode
 (setq org-src-fontify-natively t)
 
 ;;; org-draft
 (setq org-draft-path "~/.emacs.d/.draft.org")
-(setq org-draft-sync-path "~/Dropbox/Org/draft.org")
+(setq org-draft-sync-path "~/Org/draft.org")
 (defun org-draft()
   (interactive)
   (find-file org-draft-path))
