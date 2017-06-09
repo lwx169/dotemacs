@@ -193,4 +193,8 @@
 ;;;; ccrypt
 (require 'ps-ccrypt)
 
+;;;; writeroom
+(require 'writeroom-mode)
+(setq writeroom-width 120)
+
 (provide 'other-cfg)
