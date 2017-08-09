@@ -55,4 +55,20 @@
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((plantuml . t)))
 
+;;; org screenshot
+(defun org-screenshot ()
+  (interactive)
+  (unless (file-exists-p ".res")
+    (make-directory ".res"))
+  (setq filename
+        (concat
+         (make-temp-name
+          (concat ".res/"
+                  (buffer-name)
+                  "_"
+                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+  (call-process "import" nil nil nil filename)
+  (insert (concat "[[" filename "]]"))
+  (org-display-inline-images))
+
 (provide 'org-cfg)
