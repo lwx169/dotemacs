@@ -161,6 +161,8 @@
 	  )
 	)
   )
+(add-hook 'term-mode-hook
+          (lambda() (yas-minor-mode -1)))
 
 ;;;; erc
 (setq erc-ignore-list nil)
