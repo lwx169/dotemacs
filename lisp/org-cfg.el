@@ -71,4 +71,9 @@
   (insert (concat "[[" filename "]]"))
   (org-display-inline-images))
 
+;;; worklog
+(defun worklog()
+  (interactive)
+  (find-file "~/Org/WorkLog/MuLangCloud/2017.org"))
+
 (provide 'org-cfg)
