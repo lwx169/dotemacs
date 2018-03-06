@@ -1,5 +1,8 @@
 ;; setting for macOS
 
+;;; enable golbal menu
+(menu-bar-mode 1)
+
 ;;; mac key-binding
 (setq mac-option-modifier 'hyper)
 (setq mac-option-modifier 'super)

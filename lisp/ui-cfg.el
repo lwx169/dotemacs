@@ -12,7 +12,7 @@
 (display-time-mode)
 
 ;;; set color theme
-(load-theme 'wombat)
+(load-theme 'base16-ocean-dark t)
 
 ;;; set font in os related config
 
