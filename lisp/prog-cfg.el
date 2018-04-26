@@ -1,16 +1,16 @@
 ;; -*- emacs-lisp -*-
 
 ;;; auto-complete
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(ac-config-default)
-(global-auto-complete-mode 1)
-(setq ac-sources '(ac-source-files-in-current-dir
-                   ac-source-filename
-                   ac-source-abbrev
-                   ac-source-words-in-buffer
-				   ac-source-words-in-all-buffer
-                   ac-source-imenu))
+;; (require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+;; (ac-config-default)
+;; (global-auto-complete-mode 1)
+;; (setq ac-sources '(ac-source-files-in-current-dir
+;;                    ac-source-filename
+;;                    ac-source-abbrev
+;;                    ac-source-words-in-buffer
+;; 				   ac-source-words-in-all-buffer
+;;                    ac-source-imenu))
 
 ;;; highlight symbo
 (require 'auto-highlight-symbol-config)
@@ -83,6 +83,9 @@
 (add-hook 'c-mode-common-hook 'c-if-0-hook)
 (add-hook 'c-mode-hook 'remove-dos-eol)
 
+;;;;; lsp
+(require 'lsp-mode)
+
 ;;;;; elisp
 (add-to-list 'magic-mode-alist '("-*- emacs-lisp -*-" . emacs-lisp-mode))
 
@@ -94,15 +97,36 @@
 (setq lua-indent-level 4)
 
 ;;;; python
-(autoload 'jedi:setup "jedi" nil t)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
+;;(autoload 'jedi:setup "jedi" nil t)
+;;(add-hook 'python-mode-hook 'jedi:setup)
+;;(setq jedi:complete-on-dot t)
 (setq python-indent-offset 4)
 (setq python-indent-guess-indent-offset nil)
 
 ;;;; rust
 (autoload 'rust-mode "rust-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
+;;;; java
+(require 'lsp-javacomp)
+(add-hook 'java-mode-hook #'lsp-javacomp-enable)
+(use-package lsp-javacomp
+  :commands lsp-javacomp-enable
+  :init
+  (add-hook 'java-mode-hook
+            (lambda ()
+              ;; Load company-lsp before enabling lsp-javacomp, so that function
+              ;; parameter snippet works.
+              (require 'company-lsp)
+              (lsp-javacomp-enable)
+              ;; Use company-lsp as the company completion backend
+              (set (make-variable-buffer-local 'company-backends) '(company-lsp))
+              ;; Optional company-mode settings
+              (set (make-variable-buffer-local 'company-idle-delay) 0.1)
+              (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)))
+  ;; Optional, make sure JavaComp is installed. See below.
+  :config
+  (lsp-javacomp-install-server))
 
 ;;;; cmake
 (require 'cmake-mode)
@@ -111,7 +135,10 @@
 				("\\.cmake\\'" . cmake-mode))
 			  auto-mode-alist))
 
-
+;;;;; company
+(add-hook 'after-init-hook 'global-company-mode)
+(require 'company-lsp)
+(push 'company-lsp company-backends)
 
 ;;;; auto detect indent mode
 (defun auto-detect-indent-mode()

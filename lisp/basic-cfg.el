@@ -12,6 +12,9 @@
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 
+;;;; use-package
+(require 'use-package)
+
 ;;;; electric
 (require 'electric)
 (electric-indent-mode t)
@@ -71,6 +74,7 @@
 
 ;;;; neotree
 (require 'neotree)
+(setq neo-window-width 36)
 
 ;;;; htmlize
 (require 'htmlize)
