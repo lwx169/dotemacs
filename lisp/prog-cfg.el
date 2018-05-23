@@ -139,6 +139,9 @@
 ;;;; toml
 (add-to-list 'auto-mode-alist '("\\.toml\\'" . toml-mode))
 
+;;;; Dockerfile
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'company-lsp)
