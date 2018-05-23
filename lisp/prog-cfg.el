@@ -135,6 +135,10 @@
 				("\\.cmake\\'" . cmake-mode))
 			  auto-mode-alist))
 
+
+;;;; toml
+(add-to-list 'auto-mode-alist '("\\.toml\\'" . toml-mode))
+
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'company-lsp)
