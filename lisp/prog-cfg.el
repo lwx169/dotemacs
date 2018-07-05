@@ -136,6 +136,9 @@
 			  auto-mode-alist))
 
 
+;;;; yaml
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
 ;;;; toml
 (add-to-list 'auto-mode-alist '("\\.toml\\'" . toml-mode))
 
