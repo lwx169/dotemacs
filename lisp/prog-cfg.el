@@ -185,15 +185,4 @@
   )
 )
 
-(require 'wakatime-mode)
-(setq wakatime-api-key "")
-(setq wakatime-cli-path "/usr/local/bin/wakatime")
-(add-hook 'c-mode-hook 'wakatime-mode)
-(add-hook 'sh-mode-hook 'wakatime-mode)
-(add-hook 'python-mode-hook 'wakatime-mode)
-(add-hook 'java-mode-hook 'wakatime-mode)
-(add-hook 'lua-mode-hook 'wakatime-mode)
-(add-hook 'rust-mode-hook 'wakatime-mode)
-(add-hook 'emacs-lisp-mode-hook 'wakatime-mode)
-
 (provide 'prog-cfg)
