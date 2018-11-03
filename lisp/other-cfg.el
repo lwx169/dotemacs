@@ -199,4 +199,9 @@
 (require 'writeroom-mode)
 (setq writeroom-width 120)
 
+;;;; robot framework
+(load-file "../plugins/robot-mode.el")
+(add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
+
+
 (provide 'other-cfg)
