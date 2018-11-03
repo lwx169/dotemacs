@@ -145,6 +145,9 @@
 ;;;; Dockerfile
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
+;;;; coffee script
+(add-to-list 'auto-mode-alist '("\\.coffee\\'" . coffee-mode))
+
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'company-lsp)
