@@ -1,20 +1,5 @@
 ;; -*- emacs-lisp -*-
 
-;;; auto-complete
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-;; (ac-config-default)
-;; (global-auto-complete-mode 1)
-;; (setq ac-sources '(ac-source-files-in-current-dir
-;;                    ac-source-filename
-;;                    ac-source-abbrev
-;;                    ac-source-words-in-buffer
-;; 				   ac-source-words-in-all-buffer
-;;                    ac-source-imenu))
-
-;;; highlight symbo
-(require 'auto-highlight-symbol-config)
-
 ;;; yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)

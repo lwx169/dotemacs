@@ -42,10 +42,6 @@
   (interactive)
   (find-file org-draft-path))
 
-;;; calfw
-(require 'calfw)
-(require 'calfw-org)
-
 ;;; org screenshot
 (defun org-screenshot ()
   (interactive)

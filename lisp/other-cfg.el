@@ -125,9 +125,6 @@
 ;;;; ace-jump-mode
 (require 'ace-jump-mode)
 
-;;;; ace-window
-(require 'ace-window)
-
 ;;;; orgnote
 (require 'orgnote)
 
@@ -135,7 +132,7 @@
 (require 'deft)
 (setq deft-text-mode 'org-mode)
 (setq deft-extension "org")
-(setq deft-directory "~/Org/Wiki")
+(setq deft-directory "~/Org/Note/CS")
 (setq deft-recursive t)
 
 ;;;; markdown
@@ -143,10 +140,6 @@
    "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-;;;; undo-tree
-(require 'undo-tree)
-
 
 ;;;; multi-term
 (require 'multi-term)
@@ -189,19 +182,7 @@
    ((string-equal helm-jump-action "swoop") (helm-swoop-back-to-last-point)))
   (setq helm-jump-action nil))
 
-;;;; undo-tree
-(require 'undo-tree)
-
 ;;;; ccrypt
 (require 'ps-ccrypt)
-
-;;;; writeroom
-(require 'writeroom-mode)
-(setq writeroom-width 120)
-
-;;;; robot framework
-;; (load-file "plugins/robot-mode.el")
-;; (add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
-
 
 (provide 'other-cfg)

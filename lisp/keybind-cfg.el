@@ -25,14 +25,7 @@
 (define-key global-map [f1] 'man-follow)
 
 ;; ;;; neotree
-;; (define-key global-map [f2] 'neotree-toggle)
-
-;;; sr-speedbar
-;; (define-key global-map [f2] 'sr-speedbar-toggle)
-
-;;; sdcv
-(define-key global-map [f5] 'sdcv-search-pointer+)
-(define-key global-map [f6] 'sdcv-search-input+)
+(define-key global-map [f2] 'neotree-toggle)
 
 ;;; org-draft
 (define-key global-map [f8] 'org-draft)
@@ -55,8 +48,5 @@
 
 ;;; ace-jump
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-
-;;; ace-window
-(define-key global-map (kbd "C-x o") 'ace-window)
 
 (provide 'keybind-cfg)

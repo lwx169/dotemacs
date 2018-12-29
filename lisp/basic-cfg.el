@@ -32,9 +32,6 @@
 		 "\\*Minibuf" "\\*magit" "\\*scratch"
 		 "\\*Buffer" "\\*IBuffer" "\\*Message"))
 
-;;; sdcv
-(require 'sdcv)
-
 ;;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -59,11 +56,7 @@
                                        (=
                                         (user-uid)
                                         0)
-                                       " # " " >>> ")))
-	  )
-
-(eval-after-load 'eshell
-  '(require 'eshell-autojump nil t))
+                                       " # " " >>> "))))
 
 (setq eshell-last-dir-ring-size 500)
 
@@ -75,12 +68,5 @@
 ;;;; neotree
 (require 'neotree)
 (setq neo-window-width 36)
-
-;;;; htmlize
-(require 'htmlize)
-
-;;;; sr-speedbar
-(require 'sr-speedbar)
-(setq sr-speedbar-right-side nil)
 
 (provide 'basic-cfg)
