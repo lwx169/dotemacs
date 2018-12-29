@@ -85,6 +85,20 @@
 
 ;;;;; lsp
 (require 'lsp-mode)
+(use-package lsp-mode
+  :config
+  (require 'lsp-clients)
+  (add-hook 'prog-mode-hook 'lsp))
+
+(use-package lsp-mode
+  :config
+  ;;; Enable lsp in all programming modes
+  (require 'lsp-clients)
+  (add-hook 'prog-mode-hook 'lsp)
+
+  ;;; Additional lsp-related packages
+  (use-package company-lsp)
+  (use-package lsp-ui))
 
 ;;;;; elisp
 (add-to-list 'magic-mode-alist '("-*- emacs-lisp -*-" . emacs-lisp-mode))
@@ -97,9 +111,6 @@
 (setq lua-indent-level 4)
 
 ;;;; python
-;;(autoload 'jedi:setup "jedi" nil t)
-;;(add-hook 'python-mode-hook 'jedi:setup)
-;;(setq jedi:complete-on-dot t)
 (setq python-indent-offset 4)
 (setq python-indent-guess-indent-offset nil)
 
@@ -150,8 +161,6 @@
 
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
-(require 'company-lsp)
-(push 'company-lsp company-backends)
 
 ;;;; auto detect indent mode
 (defun auto-detect-indent-mode()
