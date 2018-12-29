@@ -46,15 +46,6 @@
 (require 'calfw)
 (require 'calfw-org)
 
-;;; plantuml
-(require 'plantuml-mode)
-(setq plantuml-jar-path "~/.emacs.d/plugins/plantuml/plantuml.jar")
-(setq org-plantuml-jar-path "~/.emacs.d/plugins/plantuml/plantuml.jar")
-(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-(add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
-(org-babel-do-load-languages 'org-babel-load-languages
-                             '((plantuml . t)))
-
 ;;; org screenshot
 (defun org-screenshot ()
   (interactive)
