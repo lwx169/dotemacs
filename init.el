@@ -23,7 +23,6 @@
 (require 'ui-cfg)
 (require 'prog-cfg)
 (require 'org-cfg)
-;;(require 'mail-cfg)
 (require 'other-cfg)
 (require 'keybind-cfg)
 (require 'os-cfg)
