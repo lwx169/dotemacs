@@ -144,6 +144,11 @@
 ;;;; coffee script
 (add-to-list 'auto-mode-alist '("\\.coffee\\'" . coffee-mode))
 
+;;;; robot framework
+;; (load-file "path/to/robot-mode.el")
+(require 'robot-mode)
+(add-to-list 'auto-mode-alist '("\\.robot\\'" . robot-mode))
+
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
 
