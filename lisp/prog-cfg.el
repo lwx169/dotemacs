@@ -84,6 +84,7 @@
   ;;; Additional lsp-related packages
   (use-package company-lsp)
   (use-package lsp-ui))
+(setq lsp-ui-sideline-enable nil)
 
 ;;;;; elisp
 (add-to-list 'magic-mode-alist '("-*- emacs-lisp -*-" . emacs-lisp-mode))
