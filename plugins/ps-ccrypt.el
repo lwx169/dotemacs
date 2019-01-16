@@ -483,7 +483,7 @@ There should be no more than seven characters after the final `/'."
     (error nil)))
 
 
-(defun ps-ccrypt-write-region (start end file &optional append visit)
+(defun ps-ccrypt-write-region (start end file &optional append visit lockname mustbenew)
   (let* ((filename (expand-file-name file))
 	 (visit-file (if (stringp visit) (expand-file-name visit) filename))
 	 (info (ps-ccrypt-get-encryption-info visit-file)))
@@ -572,7 +572,7 @@ There should be no more than seven characters after the final `/'."
 	    nil)
 	      
 	(ps-ccrypt-run-real-handler 'write-region
-				    (list start end filename append visit)))))
+				    (list start end filename append visit lockname mustbenew))))
 
 
 (defun ps-ccrypt-insert-file-contents (file &optional visit beg end replace)
