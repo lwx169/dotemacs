@@ -28,9 +28,7 @@
 (require 'helm-ls-git)
 (require 'helm-swoop)
 (setq  helm-boring-buffer-regexp-list
-	   '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area"
-		 "\\*Minibuf" "\\*magit" "\\*scratch"
-		 "\\*Buffer" "\\*IBuffer" "\\*Message"))
+	   '("\\` " "\\*.+?\\*"))
 
 ;;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)

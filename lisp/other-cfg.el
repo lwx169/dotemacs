@@ -101,6 +101,10 @@
   (interactive)
   (switch-to-buffer "*minicom*"))
 
+(defun scratch()
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+
 (defun wiki()
   (interactive)
   (find-file "~/Ubox/Org/Wiki/index.org"))
