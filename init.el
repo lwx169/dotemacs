@@ -18,6 +18,11 @@
 (require 'other-cfg)
 (require 'keybind-cfg)
 (require 'os-cfg)
+(cond
+ ((file-exists-p "~/.emacs.d/lisp/local-cfg.el")
+  (progn
+    (message "Load local config ...")
+    (require 'local-cfg))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

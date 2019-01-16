@@ -11,11 +11,6 @@
 (setq column-number-mode t)
 (display-time-mode)
 
-;;; set color theme
-(load-theme 'base16-ocean-dark t)
-
-;;; set font in os related config
-
 ;;; window split
 (setq split-width-threshold nil)
 (setq split-height-threshold 0)

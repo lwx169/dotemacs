@@ -1,2 +1,3 @@
 *.dat
 *.elc
+lisp/local-cfg.el
