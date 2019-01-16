@@ -1,7 +1,7 @@
 ;;; ps-ccrypt.el --- reading/writing/loading encrypted files
 
 ;; Copyright (C) 1993, 1994, 1995, 1997  Free Software Foundation, Inc.
-;; Copyright (C) 2001, 2003, 2006, 2008, 2010 Peter Selinger
+;; Copyright (C) 2001-2018 Peter Selinger
 
 ;; Author: jka@ece.cmu.edu (Jay K. Adams) (jka-compr.el)
 ;; Changes: selinger@users.sourceforge.net (Peter Selinger) (ps-ccrypt.el)
@@ -20,8 +20,8 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with this software; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary: 
 
@@ -75,17 +75,53 @@
 
 ;; CHANGES:
 ;;
-;; 2001/10/27: PS1 - pass keyword to ccrypt in environment variable,
-;; not on command line. Renamed package as jka-compr-ccrypt.
+
+;; 2018/07/25: PS1 - Emacs 26 compatibility: fixed a bug caused by an
+;; incompatible change in write-region.
 ;;
-;; 2003/08/13: JR1 - provide jka-compr existence functions in
-;; jka-compr-ccrypt.el, to keep info.el happy.
+;; 2017/03/05: PS1 - handle variable rename
+;; (inhibit-first-line-modes-suffixes -> inhibit-local-variables-suffixes)
+;; in a backward compatible way.
 ;;
-;; 2003/08/25: PS1 - bugfix
+;; 2017/02/22: PS1 - fixed warnings: inhibit-first-line-modes-suffixes
+;; -> inhibit-local-variables-suffixes, fix buffer-file-type warning.
+;;
+;; 2016/11/13: PS1 - delete KEY earlier (even on password mismatch).
+;;
+;; 2016/11/13: PS1 - move (setenv "KEY") into the unwind-protect.
+;; Note: this still leaks the password if the user mistyped it.
+;;
+;; 2016/11/13: PS1 - delete password from environment after each use.
+;;
+;; 2010/12/28: PS1 - only display "Password does not match" message if
+;; password was just entered by the user; if the non-matching password
+;; is stored, just prompt for it without error.
+;;
+;; 2010/12/28: PS1 - moved "encrypting xx" and "decrypting xx"
+;; messages inside ps-ccrypt-call-process; this ensures the message
+;; will appear even after a mismatched password prompt.
+;;
+;; 2010/12/28: PS1 - when inserting a file in a buffer, use filename,
+;; not buffer name, in password prompt.
+;;
+;; 2010/12/28: PS1 - use existing buffer password when re-reading a
+;; file.
+;;
+;; 2010/11/10: PS1 - fix mapcar compiler warnings.
+;;
+;; 2008/02/04: PS1 - better error message if ccrypt command not found.
 ;;
 ;; 2006/08/11: PS1 - removed compression functionality, renamed
 ;; package as ps-ccrypt. This can now coexist peacefully with
 ;; jka-compr.
+;;
+;; 2003/08/25: PS1 - bugfix
+;;
+;; 2003/08/13: JR1 - provide jka-compr existence functions in
+;; jka-compr-ccrypt.el, to keep info.el happy.
+;;
+;; 2001/10/27: PS1 - pass keyword to ccrypt in environment variable,
+;; not on command line. Renamed package as jka-compr-ccrypt.
 
 ;; INSTRUCTIONS:
 ;;
@@ -114,7 +150,7 @@
 ;; anything until the next time the buffer is saved.
 
 ;; ACKNOWLEDGMENTS
-;; 
+;;
 ;; ps-ccrypt is an adaptation of jka-compr, which is part of GNU Emacs.
 ;;
 ;; jka-compr is a V19 adaptation of jka-compr for V18 of Emacs.  Many people
@@ -139,6 +175,15 @@
 
 
 ;;; Code:
+
+;; disable compiler warning about use of a "free variable"
+(defvar buffer-file-type)
+
+;; inhibit-first-line-modes-suffixes was renamed to
+;; inhibit-local-variables-suffixes in Emacs 24.1. Ensure backward
+;; compatibility with older versions.
+(if (not (boundp 'inhibit-local-variables-suffixes))
+    (defvaralias 'inhibit-local-variables-suffixes 'inhibit-first-line-modes-suffixes))
 
 (defgroup encryption nil
   "Data encryption utilities"
@@ -391,7 +436,7 @@ command line arguments."
     
     (unwind-protect
 
-	(while (not done)
+        (while (not done)
 	  (message (format "%s..." message))
 	  (if password
 	      (setenv "KEY" password))
@@ -410,6 +455,8 @@ command line arguments."
 		       ;; pass on other errors (e.g. input file not found)
 		       (signal (car err) (cdr err))))))))
 
+            ;; do not leave the password in the enviroment.
+            (setenv "KEY")
 	    (cond ((and password (eq status 4))
 		   (cond (pw-fresh
 			  (message "Password does not match; please try again")
@@ -423,8 +470,9 @@ command line arguments."
 		   (setq done t)
 		   (message (format "%s...done" message))))))
 	  
-	  (ps-ccrypt-delete-temp-file err-file))
-      
+      (ps-ccrypt-delete-temp-file err-file)
+      (setenv "KEY"))
+
     password))
  
 
@@ -486,6 +534,7 @@ There should be no more than seven characters after the final `/'."
 (defun ps-ccrypt-write-region (start end file &optional append visit lockname mustbenew)
   (let* ((filename (expand-file-name file))
 	 (visit-file (if (stringp visit) (expand-file-name visit) filename))
+	 (lock-file (if (stringp lockname) (expand-file-name lockname) nil))
 	 (info (ps-ccrypt-get-encryption-info visit-file)))
       
       (if info
@@ -545,7 +594,7 @@ There should be no more than seven characters after the final `/'."
                 (ps-ccrypt-run-real-handler 'write-region
                                             (list (point-min) (point-max)
                                                   filename
-                                                  (and append can-append) 'dont))
+                                                  (and append can-append) 'dont lock-file mustbenew))
                 (erase-buffer)) )
 
 	    (ps-ccrypt-delete-temp-file temp-file)
@@ -572,7 +621,7 @@ There should be no more than seven characters after the final `/'."
 	    nil)
 	      
 	(ps-ccrypt-run-real-handler 'write-region
-				    (list start end filename append visit lockname mustbenew))))
+				    (list start end filename append visit lock-file mustbenew)))))
 
 
 (defun ps-ccrypt-insert-file-contents (file &optional visit beg end replace)
@@ -902,7 +951,7 @@ saying whether the mode is now on or off."
 (defun ps-ccrypt-install ()
   "Install ps-ccrypt.
 This adds entries to `file-name-handler-alist' and `auto-mode-alist'
-and `inhibit-first-line-modes-suffixes'."
+and `inhibit-local-variables-suffixes'."
 
   (setq ps-ccrypt-file-name-handler-entry
 	(cons (ps-ccrypt-build-file-regexp) 'ps-ccrypt-handler))
@@ -931,12 +980,12 @@ and `inhibit-first-line-modes-suffixes'."
 				      nil 'ps-ccrypt)
 				auto-mode-alist))
 		    ;; Also add these regexps to
-		    ;; inhibit-first-line-modes-suffixes, so that a
+		    ;; inhibit-local-variables-suffixes, so that a
 		    ;; -*- line in the first file of a encrypted tar
 		    ;; file doesn't override tar-mode.
-		    (setq inhibit-first-line-modes-suffixes
+		    (setq inhibit-local-variables-suffixes
 			  (cons (ps-ccrypt-info-regexp x)
-				inhibit-first-line-modes-suffixes)))))
+				inhibit-local-variables-suffixes)))))
    ps-ccrypt-encryption-info-list)
   (setq auto-mode-alist
 	(append auto-mode-alist ps-ccrypt-mode-alist-additions)))
@@ -945,16 +994,16 @@ and `inhibit-first-line-modes-suffixes'."
 (defun ps-ccrypt-uninstall ()
   "Uninstall ps-ccrypt.
 This removes the entries in `file-name-handler-alist' and `auto-mode-alist'
-and `inhibit-first-line-modes-suffixes' that were added
+and `inhibit-local-variables-suffixes' that were added
 by `ps-ccrypt-installed'."
-  ;; Delete from inhibit-first-line-modes-suffixes
+  ;; Delete from inhibit-local-variables-suffixes
   ;; what ps-ccrypt-install added.
   (mapc
      (function (lambda (x)
 		 (and (ps-ccrypt-info-strip-extension x)
-		      (setq inhibit-first-line-modes-suffixes
+		      (setq inhibit-local-variables-suffixes
 			    (delete (ps-ccrypt-info-regexp x)
-				    inhibit-first-line-modes-suffixes)))))
+				    inhibit-local-variables-suffixes)))))
      ps-ccrypt-encryption-info-list)
 
   (let* ((fnha (cons nil file-name-handler-alist))
