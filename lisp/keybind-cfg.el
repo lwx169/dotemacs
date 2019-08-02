@@ -24,8 +24,11 @@
 (define-key global-map [C-down] 'c-end-of-defun)
 (define-key global-map [f1] 'man-follow)
 
-;; ;;; neotree
-(define-key global-map [f2] 'neotree-toggle)
+;;; lsp-mode
+(define-key global-map "\C-cs" 'helm-grep-do-git-grep)
+(define-key global-map "\C-cd" 'lsp-ui-peek-find-definitions)
+(define-key global-map "\C-cr" 'lsp-ui-peek-find-references)
+(define-key global-map "\C-ci" 'lsp-ui-peek-find-implementation)
 
 ;;; org-draft
 (define-key global-map [f8] 'org-draft)
@@ -48,5 +51,8 @@
 
 ;;; ace-jump
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+;;; ace-window
+(define-key global-map (kbd "C-x o") 'ace-window)
 
 (provide 'keybind-cfg)
