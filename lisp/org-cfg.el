@@ -2,8 +2,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-hook 'org-mode-hook 'turn-on-font-lock)
-(add-hook 'org-mode-hook 
-		  (lambda () (setq truncate-lines nil)))
+(add-hook 'org-mode-hook
+          (lambda () (setq truncate-lines nil)))
 (setq org-agenda-span 'day)
 (setq org-startup-with-inline-images t)
 (setq org-todo-keywords
@@ -42,6 +42,19 @@
   (interactive)
   (find-file org-draft-path))
 
+;;; calfw
+(require 'calfw)
+(require 'calfw-org)
+
+;;; plantuml
+(require 'plantuml-mode)
+(setq plantuml-jar-path "~/.emacs.d/plugins/plantuml/plantuml.jar")
+(setq org-plantuml-jar-path "~/.emacs.d/plugins/plantuml/plantuml.jar")
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+(add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((plantuml . t)))
+
 ;;; org screenshot
 (defun org-screenshot ()
   (interactive)
@@ -62,5 +75,39 @@
 (defun worklog()
   (interactive)
   (find-file "~/Org/WorkLog/MuLangCloud/2017.org"))
+
+;;; publish
+(require 'ox-publish)
+;; (require 'ox-rss)
+(setq org-publish-project-alist
+      '(("blog-posts"
+         ;; publish
+         :base-directory "~/Org/Blog/posts"
+         :base-extension "org"
+         :publishing-directory "~/Org/Blog/site"
+         :publishing-function org-html-publish-to-html
+
+         ;; format
+         :headline-levels 4
+         :recursive t
+         :with-toc nil
+         :with-title t
+         :with-date t
+         :auto-preamble t
+
+         ;; sitemap
+         :auto-sitemap t
+         :sitemap-filename "index.org"
+         :sitemap-title "hehe"
+         :sitemap-style list)
+
+        ("blog-res"
+         :base-directory "~/Org/Blog/res/"
+         :base-extension ".*"
+         :publishing-directory "~/Org/Blog/site/res/"
+         :publishing-function org-publish-attachment
+         :recursive t)
+
+        ("blog" :components ("blog-posts" "blog-res"))))
 
 (provide 'org-cfg)
