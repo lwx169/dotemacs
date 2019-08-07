@@ -8,8 +8,8 @@
 (desktop-save-mode t)
 
 ;;; tab width set
-(setq tab-width 4)
-(setq default-tab-width 4)
+(setq-default tab-width 4)
+(setq-default default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 
 ;;;; use-package
