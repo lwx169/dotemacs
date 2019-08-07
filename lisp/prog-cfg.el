@@ -45,12 +45,6 @@
         ((looking-at "[])}]") (forward-char) (backward-sexp))
         (t (self-insert-command (or arg 1)))))
 
-;;;;; C/C++
-
-;;; style
-(setq c-default-style "linux")
-(setq c-basic-offset 4)
-
 ;;; Highlight #if 0 to #endif  
 (defun c-if-0-font-lock (limit)  
   (save-restriction  
@@ -87,10 +81,15 @@
 (require 'lsp-mode)
 (setq lsp-ui-sideline-enable nil)
 
-;;;;; elisp
+;;; c/c++
+(setq c-default-style "linux")
+(setq c-basic-offset 4)
+(add-hook 'c-mode-hook #'lsp)
+
+;;; elisp
 (add-to-list 'magic-mode-alist '("-*- emacs-lisp -*-" . emacs-lisp-mode))
 
-;;;;; dot
+;;; dot
 (add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode))
 
 ;;; lua
@@ -119,7 +118,6 @@
 	  (append '(("CMakeLists\\.txt\\'" . cmake-mode)
 				("\\.cmake\\'" . cmake-mode))
 			  auto-mode-alist))
-
 
 ;;;; yaml
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
