@@ -31,11 +31,11 @@
 (which-func-mode t)
 
 ;;; cscope
-(add-hook 'c-mode-common-hook
-		  '(lambda ()
-			 (require 'xcscope)))
-(setq cscope-do-not-update-database t)
-(setq cscope-edit-single-match nil)
+;; (add-hook 'c-mode-common-hook
+;; 		  '(lambda ()
+;; 			 (require 'xcscope)))
+;; (setq cscope-do-not-update-database t)
+;; (setq cscope-edit-single-match nil)
 
 ;;; jump between paren
 (defun my-match-paren (arg)
