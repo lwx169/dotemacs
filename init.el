@@ -34,7 +34,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (treemacs keyfreq company-lsp lsp-java lsp-javacomp lsp-javascript-typescript lsp-mode lsp-python lsp-ui company company-c-headers company-jedi company-web use-package helm helm-fuzzy-find helm-git helm-ls-git helm-ls-hg helm-ls-svn helm-swoop magit magit-filenotify magit-find-file magit-popup neotree yasnippet-snippets yasnippet toml-mode dockerfile-mode yaml-mode lua-mode cmake-mode plantuml-mode ace-jump-mode calfw calfw-org deft multi-term))))
+    (keyfreq company-lsp lsp-java lsp-javacomp lsp-javascript-typescript lsp-mode lsp-python lsp-ui company company-c-headers company-jedi company-web use-package helm helm-fuzzy-find helm-git helm-ls-git helm-ls-hg helm-ls-svn helm-swoop magit magit-filenotify magit-find-file magit-popup neotree yasnippet-snippets yasnippet toml-mode dockerfile-mode yaml-mode lua-mode cmake-mode plantuml-mode ace-jump-mode calfw calfw-org deft multi-term treemacs lsp-treemacs treemacs-magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
