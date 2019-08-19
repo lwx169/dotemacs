@@ -173,6 +173,9 @@
         (setq indent-tabs-mode t)
         (message "switch: %s" "indent with tab"))
   )
-)
+  )
+
+;; protobuf
+(add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode))
 
 (provide 'prog-cfg)
