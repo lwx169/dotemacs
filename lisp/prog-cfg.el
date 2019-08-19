@@ -111,6 +111,10 @@
 ;;;; java
 (require 'lsp-java)
 (add-hook 'java-mode-hook #'lsp)
+(require 'groovy-mode)
+(add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
+(require 'gradle-mode)
+(add-to-list 'auto-mode-alist '("\\.gradle\\'" . gradle-mode))
 
 ;;;; cmake
 (require 'cmake-mode)
