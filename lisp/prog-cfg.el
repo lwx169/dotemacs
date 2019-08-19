@@ -1,41 +1,21 @@
 ;; -*- emacs-lisp -*-
 
-;;; auto-complete
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-;; (ac-config-default)
-;; (global-auto-complete-mode 1)
-;; (setq ac-sources '(ac-source-files-in-current-dir
-;;                    ac-source-filename
-;;                    ac-source-abbrev
-;;                    ac-source-words-in-buffer
-;; 				   ac-source-words-in-all-buffer
-;;                    ac-source-imenu))
-
-;;; highlight symbo
-;;(require 'auto-highlight-symbol-config)
-
-;;; yasnippet
-(require 'yasnippet)
-(yas-global-mode 1)
+;;; emacs config
+(which-func-mode t)
 
 ;;; template
-(require 'template)
-(template-initialize)
-(setq template-default-directories (cons "~/.emacs.d/templates/" template-default-directories))
+(use-package template
+  :config
+  (template-initialize)
+  (setq template-default-directories (cons "~/.emacs.d/templates/" template-default-directories)))
+
+;;; yasnippet
+(use-package yasnippet
+  :custom
+  (yas-global-mode 1 "enable yasnippet-mode globally"))
 
 ;;; magit
 (require 'magit)
-
-;;; show which func
-(which-func-mode t)
-
-;;; cscope
-;; (add-hook 'c-mode-common-hook
-;; 		  '(lambda ()
-;; 			 (require 'xcscope)))
-;; (setq cscope-do-not-update-database t)
-;; (setq cscope-edit-single-match nil)
 
 ;;; jump between paren
 (defun my-match-paren (arg)
@@ -73,48 +53,68 @@
   (font-lock-add-keywords  
    nil  
    '((c-if-0-font-lock (0 font-lock-comment-face prepend))) 'add-to-end))
-  
-(add-hook 'c-mode-common-hook 'c-if-0-hook)
-(add-hook 'c-mode-hook 'remove-dos-eol)
 
-;;;;; lsp
-(require 'lsp-mode)
-(setq lsp-ui-sideline-enable nil)
+;;; linum
+(use-package linum-mode
+  :hook (c-mode-common-hook
+         emacs-lisp-mode
+         lua-mode
+         java-mode
+         python-mode
+         rust-mode
+         groovy-mode))
+
+;;; lsp
+(use-package lsp-mode
+  :custom
+  (lsp-ui-sideline-enable nil "Disable sideline"))
 
 ;;; c/c++
-(setq c-default-style "linux")
-(setq c-basic-offset 4)
-(add-hook 'c-mode-hook #'lsp)
+(use-package cc-mode
+  :mode
+  ("\\.c\\'" . c-mode)
+  :custom
+  (c-default-style "linux")
+  (c-basic-offset 4)
+  :init
+  (add-hook 'c-mode-common-hook #'c-if-0-hook)
+  (add-hook 'c-mode-hook #'remove-dos-eol)
+  (add-hook 'c-mode-hook #'lsp))
 
-;;; elisp
-(add-to-list 'magic-mode-alist '("-*- emacs-lisp -*-" . emacs-lisp-mode))
+;;; java
+(use-package lsp-java
+  :init
+  (add-hook 'java-mode-hook #'lsp))
 
-;;; dot
-(add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode))
+(require 'gradle-mode)
+(add-to-list 'auto-mode-alist '("\\.gradle\\'" . gradle-mode))
+(require 'groovy-mode)
+(add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
 
 ;;; lua
-(require 'lua-mode)
-(setq lua-indent-level 4)
+(use-package lua-mode
+  :mode
+  ("\\.lua\\'" . lua-mode)
+  :custom
+  (lua-indent-level 4))
 
-;;;; python
+;;; python
+(use-package python
+  :mode
+  ("\\.py\\'" . python-mode)
+  :config
+  (setq python-indent-offset 4)
+  (setq python-indent-guess-indent-offset nill))
+
 ;;(autoload 'jedi:setup "jedi" nil t)
 ;;(add-hook 'python-mode-hook 'jedi:setup)
 ;;(setq jedi:complete-on-dot t)
-(setq python-indent-offset 4)
-(setq python-indent-guess-indent-offset nil)
 
 ;;;; rust
-(autoload 'rust-mode "rust-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-(add-hook 'rust-mode-hook #'lsp)
-
-;;;; java
-(require 'lsp-java)
-(add-hook 'java-mode-hook #'lsp)
-(require 'groovy-mode)
-(add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
-(require 'gradle-mode)
-(add-to-list 'auto-mode-alist '("\\.gradle\\'" . gradle-mode))
+(use-package rust-mode
+  :mode "\\.rs\\'"
+  :init
+  (add-hook 'rust-mode-hook #'lsp))
 
 ;;;; cmake
 (require 'cmake-mode)
@@ -128,6 +128,11 @@
 
 ;;;; toml
 (add-to-list 'auto-mode-alist '("\\.toml\\'" . toml-mode))
+
+;;; dot
+(use-package graphviz-dot-mode
+  :mode
+  ("\\.dot\\'" . graphviz-dot-mode))
 
 ;;;; Dockerfile
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))

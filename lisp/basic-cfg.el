@@ -14,6 +14,7 @@
 
 ;;;; use-package
 (require 'use-package)
+(setq use-package-verbose t)
 
 ;;;; electric
 (require 'electric)
@@ -62,9 +63,5 @@
 ;; browser
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "firefox")
-
-;;;; neotree
-(require 'neotree)
-(setq neo-window-width 36)
 
 (provide 'basic-cfg)

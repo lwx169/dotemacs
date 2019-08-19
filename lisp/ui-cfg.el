@@ -14,18 +14,7 @@
 ;;; window split
 (setq split-width-threshold nil)
 (setq split-height-threshold 0)
-
 (setq linum-format "%3d ")
-(add-hook 'c-mode-common-hook
-		  'linum-mode)
-(add-hook 'python-mode-hook
-		  'linum-mode)
-(add-hook 'emacs-lisp-mode-hook
-		  'linum-mode)
-(add-hook 'lua-mode-hook
-		  'linum-mode)
-(add-hook 'rust-mode-hook
-		  'linum-mode)
 
 ;;; hide dos '^M' character
 (defun remove-dos-eol ()
