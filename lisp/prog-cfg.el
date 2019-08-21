@@ -70,7 +70,6 @@
   :custom
   (lsp-ui-sideline-enable nil "Disable sideline")
   :bind
-  ("\C-cs" . helm-grep-do-git-grep)
   ("\C-cd" . lsp-ui-peek-find-definitions)
   ("\C-cr" . lsp-ui-peek-find-references)
   ("\C-ci" . lsp-ui-peek-find-implementation))

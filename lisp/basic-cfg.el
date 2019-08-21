@@ -67,9 +67,21 @@
 
 (setq eshell-last-dir-ring-size 500)
 
-
 ;; browser
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "firefox")
+
+;;; projectile
+(use-package projectile
+  :config 
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (projectile-mode +1))
+
+(use-package helm-projectile
+  :bind
+  ("\C-cpf" . helm-projectile-find-file)
+  ("\C-cpr" . helm-projectile-recentf)
+  ("\C-cps" . helm-projectile-switch-project)
+  ("\C-cpg" . helm-projectile-grep))
 
 (provide 'basic-cfg)
