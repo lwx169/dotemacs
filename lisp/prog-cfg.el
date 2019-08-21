@@ -56,7 +56,7 @@
 
 ;;; linum
 (use-package linum-mode
-  :hook (c-mode-common-hook
+  :hook (c-mode
          emacs-lisp-mode
          sh-mode
          lua-mode
