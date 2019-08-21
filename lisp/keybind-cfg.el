@@ -1,12 +1,6 @@
 ;; -*- emacs-lisp -*-
 
 ;;; helm
-(define-key global-map "\C-cm" 'helm-jump-use-imenu)
-(define-key global-map "\C-co" 'helm-jump-use-swoop)
-(define-key global-map "\C-cb" 'helm-jump-back)
-(define-key global-map "\C-xb" 'helm-mini)
-(define-key global-map "\C-xp" 'helm-browse-project)
-(define-key global-map "\C-xg" 'helm-grep-do-git-grep)
 
 ;;; edit
 (define-key global-map "\C-x\C-n" 'template-new-file)
@@ -23,12 +17,6 @@
 (define-key global-map [C-up] 'c-beginning-of-defun)
 (define-key global-map [C-down] 'c-end-of-defun)
 (define-key global-map [f1] 'man-follow)
-
-;;; lsp-mode
-(define-key global-map "\C-cs" 'helm-grep-do-git-grep)
-(define-key global-map "\C-cd" 'lsp-ui-peek-find-definitions)
-(define-key global-map "\C-cr" 'lsp-ui-peek-find-references)
-(define-key global-map "\C-ci" 'lsp-ui-peek-find-implementation)
 
 ;;; org-draft
 (define-key global-map [f8] 'org-draft)
@@ -48,11 +36,5 @@
 
 ;;; match paren
 (define-key global-map "$" 'my-match-paren)
-
-;;; ace-jump
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-
-;;; ace-window
-(define-key global-map (kbd "C-x o") 'ace-window)
 
 (provide 'keybind-cfg)

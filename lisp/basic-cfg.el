@@ -28,8 +28,16 @@
 (require 'helm-config)
 (require 'helm-ls-git)
 (require 'helm-swoop)
-(setq  helm-boring-buffer-regexp-list
-	   '("\\` " "\\*.+?\\*"))
+(use-package helm
+  :custom
+  (helm-boring-buffer-regexp-list '("\\` " "\\*.+?\\*"))
+  :bind
+  ("\C-cm" . helm-jump-use-imenu)
+  ("\C-co" . helm-jump-use-swoop)
+  ("\C-cb" . helm-jump-back)
+  ("\C-xb" . helm-mini)
+  ("\C-xp" . helm-browse-project)
+  ("\C-xg" . helm-grep-do-git-grep))
 
 ;;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)

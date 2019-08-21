@@ -58,6 +58,7 @@
 (use-package linum-mode
   :hook (c-mode-common-hook
          emacs-lisp-mode
+         sh-mode
          lua-mode
          java-mode
          python-mode
@@ -67,7 +68,12 @@
 ;;; lsp
 (use-package lsp-mode
   :custom
-  (lsp-ui-sideline-enable nil "Disable sideline"))
+  (lsp-ui-sideline-enable nil "Disable sideline")
+  :bind
+  ("\C-cs" . helm-grep-do-git-grep)
+  ("\C-cd" . lsp-ui-peek-find-definitions)
+  ("\C-cr" . lsp-ui-peek-find-references)
+  ("\C-ci" . lsp-ui-peek-find-implementation))
 
 ;;; c/c++
 (use-package cc-mode
@@ -140,6 +146,9 @@
 ;;;; coffee script
 (add-to-list 'auto-mode-alist '("\\.coffee\\'" . coffee-mode))
 
+;; protobuf
+(add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode))
+
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'company-lsp)
@@ -179,8 +188,5 @@
         (message "switch: %s" "indent with tab"))
   )
   )
-
-;; protobuf
-(add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode))
 
 (provide 'prog-cfg)

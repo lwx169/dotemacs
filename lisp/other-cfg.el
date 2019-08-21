@@ -43,56 +43,6 @@
        (copy-thing 'beginning-of-line 'end-of-line arg)
 	   (message "line copied!"))
 
-;; (defun copy-paragraph (&optional arg)
-;;   "Copy paragraphes at point"
-;;   (interactive "P")
-;;   (copy-thing 'backward-paragraph 'forward-paragraph arg)
-;;   (paste-to-mark arg)
-;;   )
-
-;; (global-set-key (kbd "C-c p")         (quote copy-paragraph))
-
-;; (defun beginning-of-string(&optional arg)
-;;   "  "
-;;   (re-search-backward "[ \t]" (line-beginning-position) 3 1)
-;;   (if (looking-at "[\t ]")  (goto-char (+ (point) 1)) )
-;;   )
-;; (defun end-of-string(&optional arg)
-;;   " "
-;;   (re-search-forward "[ \t]" (line-end-position) 3 arg)
-;;   (if (looking-back "[\t ]") (goto-char (- (point) 1)) )
-;;   )
-
-;; (defun thing-copy-string-to-mark(&optional arg)
-;;   " Try to copy a string and paste it to the mark
-;;      When used in shell-mode, it will paste string on shell prompt by default "
-;;   (interactive "P")
-;;   (copy-thing 'beginning-of-string 'end-of-string arg)
-;;   (paste-to-mark arg)
-;;   )
-
-;; (global-set-key (kbd "C-c s") (quote thing-copy-string-to-mark))
-
-;; (defun beginning-of-parenthesis(&optional arg)
-;;   "  "
-;;   (re-search-backward "[[<(?\"]" (line-beginning-position) 3 1)
-;;   (if (looking-at "[[<(?\"]")  (goto-char (+ (point) 1)) )
-;;   )
-;; (defun end-of-parenthesis(&optional arg)
-;;   " "
-;;   (re-search-forward "[]>)?\"]" (line-end-position) 3 arg)
-;;   (if (looking-back "[]>)?\"]") (goto-char (- (point) 1)) )
-;;   )
-
-;; (defun thing-copy-parenxthesis-to-mark(&optional arg)
-;;   " Try to copy a parenthesis and paste it to the mark
-;;      When used in shell-mode, it will paste parenthesis on shell prompt by default "
-;;   (interactive "P")
-;;   (copy-thing 'beginning-of-parenthesis 'end-of-parenthesis arg)
-;;   (paste-to-mark arg)
-;;   )
-;; (global-set-key (kbd "C-c a")
-
 (defun switch-to-ansi-term()
   (interactive)
   (switch-to-buffer "*ansi-term*"))
@@ -127,17 +77,21 @@
   (revert-buffer t t))
 
 ;;;; ace-jump-mode
-(require 'ace-jump-mode)
+(use-package ace-jump-mode
+  :bind
+  ("C-c SPC" . ace-jump-mode)
+  ("C-x o" . ace-window))
 
 ;;;; orgnote
 (require 'orgnote)
 
 ;;;; deft
-(require 'deft)
-(setq deft-text-mode 'org-mode)
-(setq deft-extension "org")
-(setq deft-directory "~/Org/Note/CS")
-(setq deft-recursive t)
+(use-package deft
+  :custom
+  (deft-text-mode 'org-mode)
+  (deft-extension "org")
+  (deft-directory "~/Org/Note/CS")
+  (deft-recursive t))
 
 ;;;; markdown
 (autoload 'markdown-mode "markdown-mode"
