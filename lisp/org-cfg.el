@@ -7,7 +7,7 @@
 (setq org-agenda-span 'day)
 (setq org-startup-with-inline-images t)
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WORK(k)" "LIFE(f)" "BOOK(b)" "GAME(g)" "LERN(l)" "IDEV(v)" "WRIT(w)" "|" "DONE(d!)" "CANC(c!)")))
+      '((sequence "TODO(t)" "WORK(k)" "LIFE(f)" "BUY!(b)" "GAME(g)" "LERN(l)" "IDEV(v)" "WRIT(w)" "|" "DONE(d!)" "CANC(c!)")))
 
 ;;; set prioprity level
 (setq org-highest-priority ?A)
