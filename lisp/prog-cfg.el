@@ -63,7 +63,9 @@
          java-mode
          python-mode
          rust-mode
-         groovy-mode))
+         groovy-mode
+         nxml-mode
+         yaml-mode))
 
 ;;; lsp
 (use-package lsp-mode
