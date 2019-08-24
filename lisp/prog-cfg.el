@@ -71,6 +71,7 @@
 (use-package lsp-mode
   :custom
   (lsp-ui-sideline-enable nil "Disable sideline")
+  (lsp-enable-on-type-formatting nil "Disable auto format")
   :bind
   ("\C-cd" . lsp-ui-peek-find-definitions)
   ("\C-cr" . lsp-ui-peek-find-references)
