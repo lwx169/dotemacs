@@ -43,8 +43,10 @@
   (find-file org-draft-path))
 
 ;;; calfw
-(require 'calfw)
-(require 'calfw-org)
+(use-package calfw)
+(use-package calfw-org
+  :bind
+  ([f7] . cfw:open-org-calendar))
 
 ;;; plantuml
 (require 'plantuml-mode)
