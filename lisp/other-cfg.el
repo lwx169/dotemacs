@@ -143,4 +143,11 @@
 ;;;; ccrypt
 (require 'ps-ccrypt)
 
+;;;; adjust font size by hydra
+(defhydra hydra-zoom (global-map "<f2>")
+  "zoom"
+  ("=" text-scale-increase "+")
+  ("-" text-scale-decrease "-")
+  ("0" (text-scale-set 0) :bind nil :exit t))
+
 (provide 'other-cfg)
