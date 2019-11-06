@@ -61,6 +61,7 @@
          sh-mode
          lua-mode
          java-mode
+         ruby-mode
          python-mode
          rust-mode
          groovy-mode
@@ -105,6 +106,13 @@
   ("\\.lua\\'" . lua-mode)
   :custom
   (lua-indent-level 4))
+
+;;; ruby
+(use-package ruby-mode
+  :mode
+  ("\\.rb\\'" . ruby-mode)
+  :init
+  (add-hook 'ruby-mode-hook #'lsp))
 
 ;;; python
 (use-package python
