@@ -86,9 +86,11 @@
   (c-default-style "linux")
   (c-basic-offset 4)
   :init
+  (add-hook 'c-mode-hook #'lsp)  
   (add-hook 'c-mode-common-hook #'c-if-0-hook)
   (add-hook 'c-mode-hook #'remove-dos-eol)
-  (add-hook 'c-mode-hook #'lsp))
+  (add-hook 'c-mode-hook #'hs-minor-mode)
+  (add-hook 'c-mode-hook #'hide-ifdef-mode))
 
 ;;; java
 (use-package lsp-java
