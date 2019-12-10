@@ -29,8 +29,8 @@
 (require 'helm-ls-git)
 (require 'helm-swoop)
 (use-package helm
-  :custom
-  (helm-boring-buffer-regexp-list '("\\` " "\\*.+?\\*"))
+  :config
+  (setq helm-boring-buffer-regexp-list '("\\` " "\\*.+?\\*" "magit.*"))
   :bind
   ("\C-cm" . helm-jump-use-imenu)
   ("\C-co" . helm-jump-use-swoop)

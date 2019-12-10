@@ -12,7 +12,7 @@
 ;;; yasnippet
 (use-package yasnippet
   :custom
-  (yas-global-mode 1 "enable yasnippet-mode globally"))
+  (setq yas-global-mode 1))
 
 ;;; magit
 (require 'magit)
@@ -70,9 +70,9 @@
 
 ;;; lsp
 (use-package lsp-mode
-  :custom
-  (lsp-ui-sideline-enable nil "Disable sideline")
-  (lsp-enable-on-type-formatting nil "Disable auto format")
+  :config
+  (setq lsp-ui-sideline-enable nil)
+  (setq lsp-enable-on-type-formatting nil)
   :bind
   ("\C-cd" . lsp-ui-peek-find-definitions)
   ("\C-cr" . lsp-ui-peek-find-references)
@@ -82,9 +82,9 @@
 (use-package cc-mode
   :mode
   ("\\.c\\'" . c-mode)
-  :custom
-  (c-default-style "linux")
-  (c-basic-offset 4)
+  :config
+  (setq c-default-style "linux")
+  (setq c-basic-offset 4)
   :init
   (add-hook 'c-mode-hook #'lsp)  
   (add-hook 'c-mode-common-hook #'c-if-0-hook)
@@ -106,8 +106,8 @@
 (use-package lua-mode
   :mode
   ("\\.lua\\'" . lua-mode)
-  :custom
-  (lua-indent-level 4))
+  :config
+  (setq lua-indent-level 4))
 
 ;;; ruby
 (use-package ruby-mode

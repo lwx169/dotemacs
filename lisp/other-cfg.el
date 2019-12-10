@@ -85,14 +85,6 @@
 ;;;; orgnote
 (require 'orgnote)
 
-;;;; deft
-(use-package deft
-  :custom
-  (deft-text-mode 'org-mode)
-  (deft-extension "org")
-  (deft-directory "~/Org/Note/CS")
-  (deft-recursive t))
-
 ;;;; markdown
 (autoload 'markdown-mode "markdown-mode"
    "Major mode for editing Markdown files" t)
