@@ -198,7 +198,14 @@
       (progn
         (setq indent-tabs-mode t)
         (message "switch: %s" "indent with tab"))
-  )
-  )
+      ))
+
+;;; xref
+(defun xref-kill-window()
+  (interactive)
+  (let ((window (get-buffer-window "*xref*")))
+    (if window (delete-window window)))
+  (message "ok"))
+(define-key global-map "\M-'" 'xref-kill-window)
 
 (provide 'prog-cfg)
