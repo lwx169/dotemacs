@@ -27,9 +27,20 @@
 
 (defun pine:database-initialize()
   (setq pine:db (emacsql-sqlite pine:db-path))
-  (knowledge-tree:create-table)
-  (knowledge-tree:insert-node "root" 0)
-  (library:create-table))
+
+  (unless (emacsql pine:db [:select name
+                            :from sqlite_master
+                            :where (and (= type 'table)
+                                        (= name 'knowledge_tree))])
+    (progn
+      (knowledge-tree:create-table)
+      (knowledge-tree:insert-node "root" 0)))
+
+  (unless (emacsql pine:db [:select name
+                            :from sqlite_master
+                            :where (and (= type 'table)
+                                        (= name 'library))])
+    (library:create-table)))
 
 (defun pine:select-file()
   (let ((current-directory default-directory)
@@ -106,7 +117,7 @@
     ;; parse text
     (dolist (line (split-string data "\n"))
       (if (string-match-p "^[^#].+?\\:.+?" line)
-          (progn 
+          (progn
             (setq line (string-trim line))
             (setq splited (split-string line "\\:"))
             (setq key (string-trim (car splited)))
@@ -119,7 +130,7 @@
                (to (library:import-item from)))
           (map-put info-alist 'path to)))
 
-    ;; update database    
+    ;; update database
     (library:add (map-elt info-alist 'name)
                  (map-elt info-alist 'path)
                  (map-elt info-alist 'type)
@@ -178,12 +189,16 @@
 ;; |_|            |___/ |___/
 
 (pine:initialize)
+(pine-add-file)
+
 (emacsql pine:db [:drop :table knowledge-tree])
 (emacsql pine:db [:drop :table library])
-;; (emacsql-close pine:db)
+(emacsql-close pine:db)
 (knowledge-tree:insert-node "aaa" 1)
 (knowledge-tree:insert-node "bbb" 1)
 (knowledge-tree:query-node 1)
 (knowledge-tree:query-sub-nodes 1)
 
-(pine-add-file)
+(emacsql pine:db [:select *
+                  :from library
+                  :where (like name "a%")])
