@@ -21,7 +21,7 @@
 (setq org-link-abbrev-alist
       '(("pine" . "%(get-pine-resource-path)")))
 
-(defun pine:initialize() 
+(defun pine:initialize()
   (unless (file-directory-p pine:root-path)
     (make-directory pine:root-path))
   (unless (file-directory-p pine:library-path)
@@ -210,18 +210,45 @@
     (dolist (element query value)
       (push (list (car element) (vconcat [] (cdr element))) tabulated-list-entries))))
 
+
+;; refactor
+(defun pine:library-get-entry-path()
+  (let (entry path)
+    (setq entry (tabulated-list-get-entry))
+    (if entry (progn
+                (setq path (aref entry 4))
+                (setq path (concat pine:library-path "/" path)))
+      path)))
+
+(defun pine:open-file-in-emacs()
+  (interactive)
+  (let ((path (pine:library-get-entry-path)))
+    (message (concat "Open file: " path))
+    (find-file path)))
+
+(defun pine:open-file-by-external-app()
+  (interactive)
+  (let ((path (pine:library-get-entry-path))
+        (open-app nil))
+    (cond
+     ((string-equal system-type "gnu/linux") (setq open-app "xdg-open "))
+     ((string-equal system-type "darwin") (setq open-app "open "))
+     ((string-equal system-type "windows-nt") (setq open "unknown ")))
+    (message (concat "Open file: " path))
+    (shell-command (concat open-app path))))
+
 (define-derived-mode pine:library-query-mode tabulated-list-mode "Pine Library"
   "Major mode for listing items in pine library."
   (setq tabulated-list-format [("Name"     32 t)
                                ("Category" 16 t)
                                ("Filetype" 16 t)
-                               ("Tags"     16 t)
-                               ("Path"     0 nil)
-                               ])
+                               ("Tags"     16 t)])
   (setq tabulated-list-sort-key (cons "Name" nil))
   (setq tabulated-list-padding 2)
   (tabulated-list-init-header)
-  (add-hook 'tabulated-list-revert-hook 'pine:library-query-refresh nil t))
+  (add-hook 'tabulated-list-revert-hook 'pine:library-query-refresh nil t)
+  (local-set-key (kbd "RET") 'pine:open-file-in-emacs)
+  (local-set-key (kbd "o") 'pine:open-file-by-external-app))
 
 (defun pine-list-library()
   (interactive)
