@@ -3,13 +3,17 @@
 (require 'emacsql)
 (require 'emacsql-sqlite)
 
-(defconst pine:edit-buffer "*pine edit*")
+(defconst pine:edit-buffer "*Pine Edit*")
+(defconst pine:library-list-buffer "*Pine Library List*")
+(defconst pine:library-query-buffer "*Pine Library Query*")
 
+;; TODO: use defcustom
 (defvar pine:root-path "~/Temp/Pine")
 (defvar pine:library-path (concat pine:root-path "/library"))
 (defvar pine:resource-path (concat pine:root-path "/resource"))
 (defvar pine:db-path (concat pine:root-path "/pine.db"))
 (defvar pine:db nil)
+(defvar pine:query-word nil)
 
 (defun get-pine-resource-path(target)
   (concat pine:resource-path "/" target))
@@ -17,8 +21,7 @@
 (setq org-link-abbrev-alist
       '(("pine" . "%(get-pine-resource-path)")))
 
-(defun pine:initialize()
-  ;; TODO: handle more exceptions
+(defun pine:initialize() 
   (unless (file-directory-p pine:root-path)
     (make-directory pine:root-path))
   (unless (file-directory-p pine:library-path)
@@ -181,6 +184,64 @@
 
 ;;; add clip (download from a url)
 
+;;; list/query library
+(defun pine:library-query-refresh()
+  (setq tabulated-list-entries nil)
+  (if pine:query-word (library:query-by-word)
+    (library:query-all)))
+
+(defun library:query-all()
+  (let (query value)
+    (setq query (emacsql pine:db [:select [id name category filetype tags path]
+                                  :from library]))
+    (dolist (element query value)
+      (push (list (car element) (vconcat [] (cdr element))) tabulated-list-entries))))
+
+(defun library:query-by-word()
+  (let (word query value)
+    (setq word (concat "%" pine:query-word "%"))
+    (setq query (emacsql pine:db [:select [id name category filetype tags path]
+                                  :from library
+                                  :where (or (like name $s1 )
+                                             (like category $s1)
+                                             (like filetype $s1)
+                                             (like tags $s1))]
+                         word))
+    (dolist (element query value)
+      (push (list (car element) (vconcat [] (cdr element))) tabulated-list-entries))))
+
+(define-derived-mode pine:library-query-mode tabulated-list-mode "Pine Library"
+  "Major mode for listing items in pine library."
+  (setq tabulated-list-format [("Name"     32 t)
+                               ("Category" 16 t)
+                               ("Filetype" 16 t)
+                               ("Tags"     16 t)
+                               ("Path"     0 nil)
+                               ])
+  (setq tabulated-list-sort-key (cons "Name" nil))
+  (setq tabulated-list-padding 2)
+  (tabulated-list-init-header)
+  (add-hook 'tabulated-list-revert-hook 'pine:library-query-refresh nil t))
+
+(defun pine-list-library()
+  (interactive)
+  (setq pine:query-word nil)
+  (pop-to-buffer pine:library-list-buffer)
+  (pine:library-query-mode)
+  (pine:library-query-refresh)
+  (tabulated-list-print))
+
+(defun pine-query-library()
+  (interactive)
+  (setq pine:query-word (read-string "Query: "))
+  (pop-to-buffer pine:library-query-buffer)
+  (pine:library-query-mode)
+  (pine:library-query-refresh)
+  (tabulated-list-print)
+  (highlight-regexp pine:query-word)
+  (local-set-key (kbd "r") 'pine-query-library))
+
+(pine:initialize)
 (provide 'pine)
 
 ;;        _                                             _
@@ -189,18 +250,11 @@
 ;; | |_) | | (_| | |_| | (_| | | | (_) | |_| | | | | (_| |
 ;; | .__/|_|\__,_|\__, |\__, |_|  \___/ \__,_|_| |_|\__,_|
 ;; |_|            |___/ |___/
-
-(pine:initialize)
-(pine-add-file)
-
-(emacsql pine:db [:drop :table knowledge-tree])
-(emacsql pine:db [:drop :table library])
-(emacsql-close pine:db)
-(knowledge-tree:insert-node "aaa" 1)
-(knowledge-tree:insert-node "bbb" 1)
-(knowledge-tree:query-node 1)
-(knowledge-tree:query-sub-nodes 1)
-
-(emacsql pine:db [:select *
-                  :from library
-                  :where (like name "a%")])
+;;
+;; (emacsql pine:db [:drop :table knowledge-tree])
+;; (emacsql pine:db [:drop :table library])
+;; (emacsql-close pine:db)
+;; (knowledge-tree:insert-node "aaa" 1)
+;; (knowledge-tree:insert-node "bbb" 1)
+;; (knowledge-tree:query-node 1)
+;; (knowledge-tree:query-sub-nodes 1)
