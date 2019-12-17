@@ -98,17 +98,17 @@
                     ([(id integer :primary-key :autoincrement)
                       (name text :not-null)
                       (path text :not-null)
-                      (attach text)
-                      (type text)
+                      (category text)
+                      (filetype text)
                       (tags text)
                       (meta text)])]))
 
-(defun library:add(item.name item.path item.type item.tags)
+(defun library:add(item.name item.path item.category item.filetype item.tags)
   (emacsql pine:db [:insert
                     :into library
-                    [name path type tags]
-                    :values ([$s1 $s2 $s3 $s4])]
-           item.name item.path item.type item.tags))
+                    [name path category filetype tags]
+                    :values ([$s1 $s2 $s3 $s4 $s5])]
+           item.name item.path item.category item.filetype item.tags))
 
 (defun library:add-by-text(data create)
   (let (info-alist splited key value)
@@ -133,7 +133,8 @@
     ;; update database
     (library:add (map-elt info-alist 'name)
                  (map-elt info-alist 'path)
-                 (map-elt info-alist 'type)
+                 (map-elt info-alist 'category)
+                 (map-elt info-alist 'filetype)
                  (map-elt info-alist 'tags))))
 
 ;;; add knowledge tree node
@@ -150,7 +151,8 @@
       (insert "\n")
       (insert (concat "from: " file "\n"))
       (insert (concat "name: " (file-name-base file) "\n"))
-      (insert "type: \n")
+      (insert "category: \n")
+      (insert (concat "filetype: " (file-name-extension file) "\n"))
       (insert "tags: \n")
       (goto-line 4)
       (move-to-column 6)
