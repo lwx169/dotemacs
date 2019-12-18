@@ -8,7 +8,7 @@
 (defconst pine:library-query-buffer "*Pine Library Query*")
 
 ;; TODO: use defcustom
-(defvar pine:root-path "~/Temp/Pine")
+(defvar pine:root-path "~/Pine")
 (defvar pine:library-path (concat pine:root-path "/library"))
 (defvar pine:resource-path (concat pine:root-path "/resource"))
 (defvar pine:db-path (concat pine:root-path "/pine.db"))
