@@ -14,6 +14,7 @@
 (defvar pine:db-path (concat pine:root-path "/pine.db"))
 (defvar pine:db nil)
 (defvar pine:query-word nil)
+(defvar pine:edit-item-id nil)
 
 (defun get-pine-resource-path(target)
   (concat pine:resource-path "/" target))
@@ -113,11 +114,15 @@
                     :values ([$s1 $s2 $s3 $s4 $s5])]
            item.name item.path item.category item.filetype item.tags))
 
-(defun library:add-by-text(data create)
+(defun library:edit(item.id item.name item.category item.filetype item.tags)
+  (emacsql pine:db [:update library
+                    :set [(= name $s1) (= category $s2) (= filetype $s3) (= tags $s4)]
+                    :where (= id $s5)]
+           item.name item.category item.filetype item.tags item.id))
+
+(defun parse-edit-buffer(data)
   (let (info-alist splited key value)
     (setq info-alist (make-list 0 nil))
-
-    ;; parse text
     (dolist (line (split-string data "\n"))
       (if (string-match-p "^[^#].+?\\:.+?" line)
           (progn
@@ -126,16 +131,23 @@
             (setq key (string-trim (car splited)))
             (setq value (string-trim (car (cdr splited))))
             (map-put info-alist (intern key) value))))
+    info-alist))
 
-    ;; copy file
-    (if create
-        (let* ((from (map-elt info-alist 'from))
-               (to (library:import-item from)))
-          (map-put info-alist 'path to)))
-
-    ;; update database
+(defun library:add-by-text(data)
+  (let* ((info-alist (parse-edit-buffer data))
+         (from (map-elt info-alist 'from))
+         (to (library:import-item from)))
+    (map-put info-alist 'path to)
     (library:add (map-elt info-alist 'name)
                  (map-elt info-alist 'path)
+                 (map-elt info-alist 'category)
+                 (map-elt info-alist 'filetype)
+                 (map-elt info-alist 'tags))))
+
+(defun library:edit-by-text(id data)
+  (let* ((info-alist (parse-edit-buffer data)))
+    (library:edit id
+                 (map-elt info-alist 'name)
                  (map-elt info-alist 'category)
                  (map-elt info-alist 'filetype)
                  (map-elt info-alist 'tags))))
@@ -167,7 +179,7 @@
   (interactive)
   (if (string= pine:edit-buffer (buffer-name))
       (progn
-        (library:add-by-text (buffer-substring-no-properties (point-min) (point-max)) t)
+        (library:add-by-text (buffer-substring-no-properties (point-min) (point-max)))
         (kill-buffer)
         (delete-window))
     (message "Not a pine buffer")))
@@ -237,18 +249,54 @@
     (message (concat "Open file: " path))
     (shell-command (concat open-app path))))
 
+(defun pine:edit-library-item()
+  (interactive)
+  (let ((entry (tabulated-list-get-entry))
+        (buffer (get-buffer-create pine:edit-buffer)))
+    (setq pine:edit-item-id (tabulated-list-get-id))
+    (switch-to-buffer buffer)
+    (kill-region (point-min) (point-max))
+    (insert "# Commit with C-c C-c, or abort with C-c C-k.\n")
+    (insert "\n")
+    (insert (concat "name: " (aref entry 0) "\n"))
+    (insert (concat "category: " (aref entry 1) "\n"))
+    (insert (concat "filetype: " (aref entry 2) "\n"))
+    (insert (concat "tags: " (aref entry 3) "\n"))
+    (goto-line 3)
+    (move-to-column 6)
+    (local-set-key (kbd "C-c C-c") 'pine-commit-edit-item)
+    (local-set-key (kbd "C-c C-k") 'pine-abort-edit-item)
+    ))
+
+(defun pine-commit-edit-item()
+  (interactive)
+  (if (string= pine:edit-buffer (buffer-name))
+      (let ((id pine:edit-item-id))
+        (setq pine:edit-item-id -1)
+        (library:edit-by-text id (buffer-substring-no-properties (point-min) (point-max)))
+        (kill-buffer)
+        (tabulated-list-revert))
+    (message "Not a pine buffer")))
+
+(defun pine-abort-edit-item()
+  (interactive)
+  (if (string= pine:edit-buffer (buffer-name))
+      (kill-buffer)
+    (message "Not a pine buffer")))
+
 (define-derived-mode pine:library-query-mode tabulated-list-mode "Pine Library"
   "Major mode for listing items in pine library."
   (setq tabulated-list-format [("Name"     32 t)
                                ("Category" 16 t)
                                ("Filetype" 16 t)
                                ("Tags"     16 t)])
-  (setq tabulated-list-sort-key (cons "Name" nil))
+  (setq tabulated-list-sort-key (cons "Category" nil))
   (setq tabulated-list-padding 2)
   (tabulated-list-init-header)
   (add-hook 'tabulated-list-revert-hook 'pine:library-query-refresh nil t)
   (local-set-key (kbd "RET") 'pine:open-file-in-emacs)
-  (local-set-key (kbd "o") 'pine:open-file-by-external-app))
+  (local-set-key (kbd "o") 'pine:open-file-by-external-app)
+  (local-set-key (kbd "e") 'pine:edit-library-item))
 
 (defun pine-list-library()
   (interactive)
