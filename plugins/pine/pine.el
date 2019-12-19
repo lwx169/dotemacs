@@ -11,6 +11,7 @@
 (defvar pine:root-path "~/Pine")
 (defvar pine:library-path (concat pine:root-path "/library"))
 (defvar pine:resource-path (concat pine:root-path "/resource"))
+(defvar pine:trash-path (concat pine:root-path "/trash"))
 (defvar pine:db-path (concat pine:root-path "/pine.db"))
 (defvar pine:db nil)
 (defvar pine:query-word nil)
@@ -119,6 +120,12 @@
                     :set [(= name $s1) (= category $s2) (= filetype $s3) (= tags $s4)]
                     :where (= id $s5)]
            item.name item.category item.filetype item.tags item.id))
+
+(defun library:delete(item.id)
+  (emacsql pine:db [:delete
+                    :from library
+                    :where (= id $s1)]
+           item.id))
 
 (defun parse-edit-buffer(data)
   (let (info-alist splited key value)
@@ -268,6 +275,21 @@
     (local-set-key (kbd "C-c C-k") 'pine-abort-edit-item)
     ))
 
+(defun pine:delete-libray-item()
+  (interactive)
+  (let ((id (tabulated-list-get-id))
+        (entry (tabulated-list-get-entry)))
+    (if (y-or-n-p (concat "Trash item: \"" (aref entry 0) "\" ?" ))
+        (progn
+          (library:delete id)
+          (tabulated-list-revert)
+          (unless (file-directory-p pine:trash-path)
+            (make-directory pine:trash-path))
+          (rename-file (concat pine:library-path "/" (aref entry 4))
+                       (concat pine:trash-path "/" (file-name-nondirectory (aref entry 4))))
+          (message "Deleted"))
+      (message "Canceled"))))
+
 (defun pine-commit-edit-item()
   (interactive)
   (if (string= pine:edit-buffer (buffer-name))
@@ -296,7 +318,8 @@
   (add-hook 'tabulated-list-revert-hook 'pine:library-query-refresh nil t)
   (local-set-key (kbd "RET") 'pine:open-file-in-emacs)
   (local-set-key (kbd "o") 'pine:open-file-by-external-app)
-  (local-set-key (kbd "e") 'pine:edit-library-item))
+  (local-set-key (kbd "e") 'pine:edit-library-item)
+  (local-set-key (kbd "d") 'pine:delete-libray-item))
 
 (defun pine-list-library()
   (interactive)
