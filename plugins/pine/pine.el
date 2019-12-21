@@ -247,14 +247,16 @@
 
 (defun pine:open-file-by-external-app()
   (interactive)
-  (let ((path (pine:library-get-entry-path))
-        (open-app nil))
-    (cond
-     ((string-equal system-type "gnu/linux") (setq open-app "xdg-open "))
-     ((string-equal system-type "darwin") (setq open-app "open "))
-     ((string-equal system-type "windows-nt") (setq open "unknown ")))
+  (let ((path (expand-file-name (pine:library-get-entry-path))))
     (message (concat "Open file: " path))
-    (shell-command (concat open-app path))))
+    (cond
+     ((string-equal system-type "gnu/linux")
+      (let ((process-connection-type nil))
+        (start-process "" nil "xdg-open" path)))
+     ((string-equal system-type "darwin")
+      (shell-command (concat "open " path)))
+     ((string-equal system-type "windows-nt")
+      (w32-shell-execute "open" path)))))
 
 (defun pine:edit-library-item()
   (interactive)
