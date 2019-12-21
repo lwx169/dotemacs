@@ -114,4 +114,9 @@
 
         ("blog" :components ("blog-posts" "blog-res"))))
 
+;; org-babel
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((shell . t)
+                               (C . t)))
+
 (provide 'org-cfg)
