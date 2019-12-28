@@ -1,7 +1,5 @@
 ;; -*- emacs-lisp -*-
 
-;;; helm
-
 ;;; edit
 (define-key global-map "\C-x\C-n" 'template-new-file)
 (define-key global-map "\M-l" 'goto-line)

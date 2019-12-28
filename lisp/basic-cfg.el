@@ -24,21 +24,6 @@
 ;;; ido-mode
 ;; (ido-mode t)
 
-;;; helm
-;; (require 'helm-config)
-;; (require 'helm-ls-git)
-;; (require 'helm-swoop)
-;; (use-package helm
-;;   :config
-;;   (setq helm-boring-buffer-regexp-list '("\\` " "\\*.+?\\*" "magit.*"))
-;;   :bind
-;;   ("\C-cm" . helm-jump-use-imenu)
-;;   ("\C-co" . helm-jump-use-swoop)
-;;   ("\C-cb" . helm-jump-back)
-;;   ("\C-xb" . helm-mini)
-;;   ("\C-xp" . helm-browse-project)
-;;   ("\C-xg" . helm-grep-do-git-grep))
-
 (use-package ivy
   :config
   (ivy-mode 1)
@@ -101,12 +86,5 @@
   ("\C-xp" . counsel-projectile-find-file)
   ("\C-cps" . counsel-projectile-switch-project)
   ("\C-cpp" . counsel-projectile-git-grep))
-
-;; (use-package helm-projectile
-;;   :bind
-;;   ("\C-cpf" . helm-projectile-find-file)
-;;   ("\C-cpr" . helm-projectile-recentf)
-;;   ("\C-cps" . helm-projectile-switch-project)
-;;   ("\C-cpg" . helm-projectile-grep))
 
 (provide 'basic-cfg)
