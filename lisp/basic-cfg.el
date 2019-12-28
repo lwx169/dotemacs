@@ -45,8 +45,13 @@
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t))
 
+(use-package ivy-rich
+  :config
+  (ivy-rich-mode 1))
+
 (use-package counsel
   :bind
+  ("M-x" . counsel-M-x)
   ("\C-xb" . counsel-switch-buffer))
 
 (use-package swiper
