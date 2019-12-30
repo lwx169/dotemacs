@@ -39,7 +39,7 @@
                                         (= name 'knowledge_tree))])
     (progn
       (knowledge-tree:create-table)
-      (knowledge-tree:insert-node "root" 0)))
+      (knowledge-tree:insert-node "root" 0 "/")))
 
   (unless (emacsql pine:db [:select name
                             :from sqlite_master
@@ -51,14 +51,15 @@
   (emacsql pine:db [:create-table knowledge-tree
                     ([(id integer :primary-key :autoincrement)
                       (name text :not-null)
-                      (parent integer :not-null)])]))
+                      (parent integer :not-null)
+                      (path text :uniq :not-null)])]))
 
-(defun knowledge-tree:insert-node(node-name parent-id)
+(defun knowledge-tree:insert-node(node-name parent-id full-path)
   (emacsql pine:db [:insert
                     :into knowledge-tree
-                    [name parent]
-                    :values ([$s1 $s2])]
-           node-name parent-id))
+                    [name parent path]
+                    :values ([$s1 $s2 $s3])]
+           node-name parent-id full-path))
 
 (defun knowledge-tree:query-node(node-id)
   (emacsql pine:db [:select [name parent]
@@ -156,7 +157,7 @@
    'pine-add-file-action
    'pine-add-file))
 
-(defun pine-add-file-action(file) 
+(defun pine-add-file-action(file)
   (let* ((pine-buffer (get-buffer-create pine:edit-buffer))
          (pine-window (display-buffer-below-selected pine-buffer '((window-height . 20)))))
     (select-window pine-window)
