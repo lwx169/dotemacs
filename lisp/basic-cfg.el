@@ -22,22 +22,26 @@
 (electric-pair-mode t)
 
 ;;; ido-mode
-(ido-mode t)
+;; (ido-mode t)
 
-;;; helm
-(require 'helm-config)
-(require 'helm-ls-git)
-(require 'helm-swoop)
-(use-package helm
+(use-package ivy
   :config
-  (setq helm-boring-buffer-regexp-list '("\\` " "\\*.+?\\*" "magit.*"))
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t))
+
+(use-package ivy-rich
+  :config
+  (ivy-rich-mode 1))
+
+(use-package counsel
   :bind
-  ("\C-cm" . helm-jump-use-imenu)
-  ("\C-co" . helm-jump-use-swoop)
-  ("\C-cb" . helm-jump-back)
-  ("\C-xb" . helm-mini)
-  ("\C-xp" . helm-browse-project)
-  ("\C-xg" . helm-grep-do-git-grep))
+  ("M-x" . counsel-M-x)
+  ("\C-xb" . counsel-switch-buffer))
+
+(use-package swiper
+  :bind
+  ("\C-s" . swiper))
 
 ;;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
@@ -77,11 +81,10 @@
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (projectile-mode +1))
 
-(use-package helm-projectile
+(use-package counsel-projectile
   :bind
-  ("\C-cpf" . helm-projectile-find-file)
-  ("\C-cpr" . helm-projectile-recentf)
-  ("\C-cps" . helm-projectile-switch-project)
-  ("\C-cpg" . helm-projectile-grep))
+  ("\C-xp" . counsel-projectile-find-file)
+  ("\C-cps" . counsel-projectile-switch-project)
+  ("\C-cpp" . counsel-projectile-git-grep))
 
 (provide 'basic-cfg)
