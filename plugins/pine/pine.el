@@ -47,20 +47,6 @@
                                         (= name 'library))])
     (library:create-table)))
 
-(defun pine:select-file()
-  (let ((current-directory default-directory)
-        (file-list nil)
-        (selected nil))
-    (while current-directory
-      (setq current-directory (expand-file-name current-directory))
-      (setq promote (concat "Select file: ["  current-directory "] "))
-      (setq file-list (directory-files current-directory))
-      (setq selected (concat current-directory "/" (ido-completing-read promote file-list)))
-      (if (file-directory-p selected)
-          (setq current-directory selected)
-        (setq current-directory nil)))
-    selected))
-
 (defun knowledge-tree:create-table()
   (emacsql pine:db [:create-table knowledge-tree
                     ([(id integer :primary-key :autoincrement)
@@ -163,25 +149,29 @@
 ;;; add knowledge tree node
 
 ;;; add file
-(defun pine-add-file()
+(defun pine-add-file(&optional initial-input)
   (interactive)
-  (let ((file (pine:select-file)))
-    (let* ((pine-buffer (get-buffer-create pine:edit-buffer))
-           (pine-window (display-buffer-below-selected pine-buffer '((window-height . 20)))))
-      (select-window pine-window)
-      (kill-region (point-min) (point-max))
-      (insert "# Commit with C-c C-c, or abort with C-c C-k.\n")
-      (insert "\n")
-      (insert (concat "from: " file "\n"))
-      (insert (concat "name: " (file-name-base file) "\n"))
-      (insert "category: \n")
-      (insert (concat "filetype: " (file-name-extension file) "\n"))
-      (insert "tags: \n")
-      (goto-line 4)
-      (move-to-column 6)
-      (local-set-key (kbd "C-c C-c") 'pine-commit-add-item)
-      (local-set-key (kbd "C-c C-k") 'pine-abort-add-item)
-      )))
+  (counsel--find-file-1
+   "Select file: " initial-input
+   'pine-add-file-action
+   'pine-add-file))
+
+(defun pine-add-file-action(file) 
+  (let* ((pine-buffer (get-buffer-create pine:edit-buffer))
+         (pine-window (display-buffer-below-selected pine-buffer '((window-height . 20)))))
+    (select-window pine-window)
+    (kill-region (point-min) (point-max))
+    (insert "# Commit with C-c C-c, or abort with C-c C-k.\n")
+    (insert "\n")
+    (insert (concat "from: " file "\n"))
+    (insert (concat "name: " (file-name-base file) "\n"))
+    (insert "category: \n")
+    (insert (concat "filetype: " (file-name-extension file) "\n"))
+    (insert "tags: \n")
+    (goto-line 4)
+    (move-to-column 6)
+    (local-set-key (kbd "C-c C-c") 'pine-commit-add-item)
+    (local-set-key (kbd "C-c C-k") 'pine-abort-add-item)))
 
 ;;; copy from: https://nullprogram.com/blog/2010/05/11/
 (defun uuid-create ()
