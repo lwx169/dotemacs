@@ -88,15 +88,16 @@
 
 (defun library:import-item(source)
   (let* ((name (file-name-nondirectory source))
-         (hash (md5 name))
-         (prefix (substring hash 0 2))
+         (uuid (uuid-create))
+         (prefix (substring uuid 0 2))
+         (suffix (file-name-extension source))
          (folder (concat pine:library-path "/" prefix))
-         (dest (concat folder "/" name)))
+         (dest (concat folder "/" uuid "." suffix)))
     (unless (file-directory-p folder)
       (make-directory folder))
     (message "Copy file: %s -> %s" source dest)
     (copy-file source dest)
-    (concat prefix "/" name)))
+    (concat prefix "/" uuid "." suffix)))
 
 (defun library:create-table()
   (emacsql pine:db [:create-table library
@@ -181,6 +182,27 @@
       (local-set-key (kbd "C-c C-c") 'pine-commit-add-item)
       (local-set-key (kbd "C-c C-k") 'pine-abort-add-item)
       )))
+
+;;; copy from: https://nullprogram.com/blog/2010/05/11/
+(defun uuid-create ()
+  "Return a newly generated UUID. This uses a simple hashing of variable data."
+  (let ((s (md5 (format "%s%s%s%s%s%s%s%s%s%s"
+                        (user-uid)
+                        (emacs-pid)
+                        (system-name)
+                        (user-full-name)
+                        user-mail-address
+                        (current-time)
+                        (emacs-uptime)
+                        (garbage-collect)
+                        (random)
+                        (recent-keys)))))
+    (format "%s-%s-3%s-%s-%s"
+            (substring s 0 8)
+            (substring s 8 12)
+            (substring s 13 16)
+            (substring s 16 20)
+            (substring s 20 32))))
 
 (defun pine-commit-add-item()
   (interactive)
