@@ -38,7 +38,8 @@
   :bind
   ("M-x" . counsel-M-x)
   ("\C-xb" . counsel-switch-buffer)
-  ("\C-cm" . counsel-imenu))
+  ("\C-cm" . counsel-imenu)
+  ("\C-cl" . counsel-locate))
 
 (use-package swiper
   :bind
@@ -48,16 +49,16 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-;;; eshell 
-(setq eshell-save-history-on-exit t 
-	  eshell-history-size 2000 
-	  eshell-hist-ignoredups t
-	  eshell-cmpl-ignore-case t
-	  eshell-cp-interactive-query t
-	  eshell-ln-interactive-query t
-	  eshell-mv-interactive-query t
-	  eshell-rm-interactive-query t 
-	  eshell-mv-overwrite-files nil 
+;;; eshell
+(setq eshell-save-history-on-exit t
+      eshell-history-size 2000
+      eshell-hist-ignoredups t
+      eshell-cmpl-ignore-case t
+      eshell-cp-interactive-query t
+      eshell-ln-interactive-query t
+      eshell-mv-interactive-query t
+      eshell-rm-interactive-query t
+      eshell-mv-overwrite-files nil
       eshell-highlight-prompt   t
       eshell-prompt-regexp      "^[^#$\n]* [#>]+ "
       eshell-prompt-function    (lambda nil
@@ -78,7 +79,7 @@
 
 ;;; projectile
 (use-package projectile
-  :config 
+  :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (projectile-mode +1))
 
