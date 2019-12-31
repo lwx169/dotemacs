@@ -1,8 +1,5 @@
 ;; pine
 
-(require 'emacsql)
-(require 'emacsql-sqlite)
-
 (defconst pine:edit-buffer "*Pine Edit*")
 (defconst pine:library-list-buffer "*Pine Library List*")
 (defconst pine:library-query-buffer "*Pine Library Query*")
@@ -13,7 +10,6 @@
 (defvar pine:resource-path (concat pine:root-path "/resource"))
 (defvar pine:trash-path (concat pine:root-path "/trash"))
 (defvar pine:db-path (concat pine:root-path "/pine.db"))
-(defvar pine:db nil)
 (defvar pine:query-word nil)
 (defvar pine:edit-item-id nil)
 
@@ -30,49 +26,6 @@
     (make-directory pine:library-path))
   (pine:database-initialize))
 
-(defun pine:database-initialize()
-  (setq pine:db (emacsql-sqlite pine:db-path))
-
-  (unless (emacsql pine:db [:select name
-                            :from sqlite_master
-                            :where (and (= type 'table)
-                                        (= name 'knowledge_tree))])
-    (progn
-      (knowledge-tree:create-table)
-      (knowledge-tree:insert-node "root" 0 "/")))
-
-  (unless (emacsql pine:db [:select name
-                            :from sqlite_master
-                            :where (and (= type 'table)
-                                        (= name 'library))])
-    (library:create-table)))
-
-(defun knowledge-tree:create-table()
-  (emacsql pine:db [:create-table knowledge-tree
-                    ([(id integer :primary-key :autoincrement)
-                      (name text :not-null)
-                      (parent integer :not-null)
-                      (path text :uniq :not-null)])]))
-
-(defun knowledge-tree:insert-node(node-name parent-id full-path)
-  (emacsql pine:db [:insert
-                    :into knowledge-tree
-                    [name parent path]
-                    :values ([$s1 $s2 $s3])]
-           node-name parent-id full-path))
-
-(defun knowledge-tree:query-node(node-id)
-  (emacsql pine:db [:select [name parent]
-                    :from knowledge-tree
-                    :where (= id $s1)]
-           node-id))
-
-(defun knowledge-tree:query-sub-nodes(node-id)
-  (emacsql pine:db [:select [id name]
-                    :from knowledge-tree
-                    :where (= parent $s1)]
-           node-id))
-
 (defun library:import-item(source)
   (let* ((name (file-name-nondirectory source))
          (uuid (uuid-create))
@@ -85,35 +38,6 @@
     (message "Copy file: %s -> %s" source dest)
     (copy-file source dest)
     (concat prefix "/" uuid "." suffix)))
-
-(defun library:create-table()
-  (emacsql pine:db [:create-table library
-                    ([(id integer :primary-key :autoincrement)
-                      (name text :not-null)
-                      (path text :not-null)
-                      (category text)
-                      (filetype text)
-                      (tags text)
-                      (meta text)])]))
-
-(defun library:add(item.name item.path item.category item.filetype item.tags)
-  (emacsql pine:db [:insert
-                    :into library
-                    [name path category filetype tags]
-                    :values ([$s1 $s2 $s3 $s4 $s5])]
-           item.name item.path item.category item.filetype item.tags))
-
-(defun library:edit(item.id item.name item.category item.filetype item.tags)
-  (emacsql pine:db [:update library
-                    :set [(= name $s1) (= category $s2) (= filetype $s3) (= tags $s4)]
-                    :where (= id $s5)]
-           item.name item.category item.filetype item.tags item.id))
-
-(defun library:delete(item.id)
-  (emacsql pine:db [:delete
-                    :from library
-                    :where (= id $s1)]
-           item.id))
 
 (defun parse-edit-buffer(data)
   (let (info-alist splited key value)
@@ -169,7 +93,7 @@
     (insert "category: \n")
     (insert (concat "filetype: " (file-name-extension file) "\n"))
     (insert "tags: \n")
-    (goto-line 4)
+    (forward-line 4)
     (move-to-column 6)
     (local-set-key (kbd "C-c C-c") 'pine-commit-add-item)
     (local-set-key (kbd "C-c C-k") 'pine-abort-add-item)))
@@ -222,27 +146,6 @@
   (if pine:query-word (library:query-by-word)
     (library:query-all)))
 
-(defun library:query-all()
-  (let (query value)
-    (setq query (emacsql pine:db [:select [id name category filetype tags path]
-                                  :from library]))
-    (dolist (element query value)
-      (push (list (car element) (vconcat [] (cdr element))) tabulated-list-entries))))
-
-(defun library:query-by-word()
-  (let (word query value)
-    (setq word (concat "%" pine:query-word "%"))
-    (setq query (emacsql pine:db [:select [id name category filetype tags path]
-                                  :from library
-                                  :where (or (like name $s1 )
-                                             (like category $s1)
-                                             (like filetype $s1)
-                                             (like tags $s1))]
-                         word))
-    (dolist (element query value)
-      (push (list (car element) (vconcat [] (cdr element))) tabulated-list-entries))))
-
-
 ;; refactor
 (defun pine:library-get-entry-path()
   (let (entry path)
@@ -284,7 +187,7 @@
     (insert (concat "category: " (aref entry 1) "\n"))
     (insert (concat "filetype: " (aref entry 2) "\n"))
     (insert (concat "tags: " (aref entry 3) "\n"))
-    (goto-line 3)
+    (forward-line 3)
     (move-to-column 6)
     (local-set-key (kbd "C-c C-c") 'pine-commit-edit-item)
     (local-set-key (kbd "C-c C-k") 'pine-abort-edit-item)
@@ -354,20 +257,7 @@
   (highlight-regexp pine:query-word)
   (local-set-key (kbd "r") 'pine-query-library))
 
-(pine:initialize)
 (provide 'pine)
-
-;;        _                                             _
-;;  _ __ | | __ _ _   _  __ _ _ __ ___  _   _ _ __   __| |
-;; | '_ \| |/ _` | | | |/ _` | '__/ _ \| | | | '_ \ / _` |
-;; | |_) | | (_| | |_| | (_| | | | (_) | |_| | | | | (_| |
-;; | .__/|_|\__,_|\__, |\__, |_|  \___/ \__,_|_| |_|\__,_|
-;; |_|            |___/ |___/
-;;
-;; (emacsql pine:db [:drop :table knowledge-tree])
-;; (emacsql pine:db [:drop :table library])
-;; (emacsql-close pine:db)
-;; (knowledge-tree:insert-node "aaa" 1)
-;; (knowledge-tree:insert-node "bbb" 1)
-;; (knowledge-tree:query-node 1)
-;; (knowledge-tree:query-sub-nodes 1)
+(cl-eval-when (load eval)
+  (require 'pine-database)
+  (pine:initialize))
