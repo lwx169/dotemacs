@@ -30,6 +30,11 @@
                             :where (and (= type 'table)
                                         (= name 'library))])
     (library:create-table))
+  (unless (emacsql pine:db [:select name
+                            :from sqlite_master
+                            :where (and (= type 'table)
+                                        (= name 'note))])
+    (note:create-table))
   (close-database))
 
 (defun library:create-table()
@@ -91,6 +96,12 @@
     (dolist (element query value)
       (push (list (car element) (vconcat [] (cdr element))) tabulated-list-entries)))
   (close-database))
+
+(defun note:create-table()
+  (emacsql pine:db [:create-table note
+                    ([(id integer :primary-key :autoincrement)
+                      (name text :not-null)
+                      (path text :not-null)])]))
 
 (defun knowledge-tree:create-table()
   (emacsql pine:db [:create-table knowledge-tree

@@ -7,7 +7,8 @@
 ;; TODO: use defcustom
 (defvar pine:root-path "~/Pine")
 (defvar pine:library-path (concat pine:root-path "/library"))
-(defvar pine:resource-path (concat pine:root-path "/resource"))
+(defvar pine:note-path (concat pine:root-path "/note"))
+(defvar pine:resource-path (concat pine:note-path "/.res"))
 (defvar pine:trash-path (concat pine:root-path "/trash"))
 (defvar pine:db-path (concat pine:root-path "/pine.db"))
 (defvar pine:query-word nil)
@@ -24,6 +25,10 @@
     (make-directory pine:root-path))
   (unless (file-directory-p pine:library-path)
     (make-directory pine:library-path))
+  (unless (file-directory-p pine:note-path)
+    (make-directory pine:note-path))
+  (unless (file-directory-p pine:resource-path)
+    (make-directory pine:resource-path))
   (pine:database-initialize))
 
 (defun library:import-item(source)
