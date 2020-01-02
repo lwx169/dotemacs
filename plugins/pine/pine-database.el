@@ -120,20 +120,24 @@
   (close-database))
 
 (defun knowledge-tree:query-node(node-id)
-  (open-database)
-  (emacsql pine:db [:select [name parent]
-                    :from knowledge-tree
-                    :where (= id $s1)]
-           node-id)
-  (close-database))
+  (let (result)
+    (open-database)
+    (setq result (emacsql pine:db [:select [name parent path]
+                                   :from knowledge-tree
+                                   :where (= id $s1)]
+                          node-id))
+    (close-database)
+    result))
 
 (defun knowledge-tree:query-sub-nodes(node-id)
-  (open-database)
-  (emacsql pine:db [:select [id name]
-                    :from knowledge-tree
-                    :where (= parent $s1)]
-           node-id)
-  (close-database))
+  (let (result)
+    (open-database)
+    (setq result (emacsql pine:db [:select [id name path]
+                                   :from knowledge-tree
+                                   :where (= parent $s1)]
+                          node-id))
+    (close-database)
+    result))
 
 (provide 'pine-database)
 

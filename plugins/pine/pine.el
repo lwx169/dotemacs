@@ -262,6 +262,57 @@
   (highlight-regexp pine:query-word)
   (local-set-key (kbd "r") 'pine-query-library))
 
+(defvar knowledge-tree:promote nil)
+(defvar knowledge-tree:curr-node-id nil)
+(defvar knowledge-tree:curr-node-map nil)
+(defvar knowledge-tree:id-stack nil)
+(defvar knowledge-tree:promote-stack nil)
+
+(defun knowledge-tree:show-sub-nodes()
+  (setq knowledge-tree:curr-node-map (make-hash-table :test 'equal))
+  (let ((sub-nodes (knowledge-tree:query-sub-nodes knowledge-tree:curr-node-id))
+        (name-list '()))
+    (dolist (node sub-nodes)
+      (push (nth 1 node) name-list)
+      (puthash (nth 1 node) (nth 0 node) knowledge-tree:curr-node-map))
+    (nreverse name-list)))
+
+(defun knowledge-tree:change-node(node)
+  (push knowledge-tree:promote knowledge-tree:promote-stack)
+  (setq knowledge-tree:promote (concat knowledge-tree:promote node "/"))
+  (push knowledge-tree:curr-node-id knowledge-tree:id-stack)
+  (setq knowledge-tree:curr-node-id (gethash node knowledge-tree:curr-node-map))
+  (knowledge-tree:browse))
+
+(defun knowledge-tree:parent-node()
+  (interactive)
+  (if (> (length knowledge-tree:id-stack) 0)
+      (progn
+        (setq knowledge-tree:promote (pop knowledge-tree:promote-stack))
+        (setq knowledge-tree:curr-node-id (pop knowledge-tree:id-stack))))
+  (knowledge-tree:browse))
+
+(defvar knowledge-tree:keymap
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "<C-backspace>") 'knowledge-tree:parent-node)
+    map))
+
+(defun knowledge-tree:browse()
+  (ivy-read knowledge-tree:promote (knowledge-tree:show-sub-nodes)
+            :history 'pine-knowledge-tree-history
+            :action 'knowledge-tree:change-node
+            :keymap knowledge-tree:keymap
+            :require-match t
+            :caller 'pine-knowledge-tree))
+
+(defun pine-knowledge-tree()
+  (interactive)
+  (setq knowledge-tree:curr-node-id 1)
+  (setq knowledge-tree:promote "ROOT:")
+  (setq knowledge-tree:id-stack '())
+  (setq knowledge-tree:promote-stack '())
+  (knowledge-tree:browse))
+
 (provide 'pine)
 (cl-eval-when (load eval)
   (require 'pine-database)
