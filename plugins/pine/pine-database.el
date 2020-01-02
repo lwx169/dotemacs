@@ -24,13 +24,13 @@
       (emacsql pine:db [:insert
                         :into knowledge-tree
                         [name parent parent]
-                        :values (["root" 0 "/"])]))
+                        :values (["root" 0 "/"])])))
   (unless (emacsql pine:db [:select name
                             :from sqlite_master
                             :where (and (= type 'table)
                                         (= name 'library))])
     (library:create-table))
-  (close-database)))
+  (close-database))
 
 (defun library:create-table()
   (emacsql pine:db [:create-table library
