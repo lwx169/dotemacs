@@ -86,6 +86,25 @@
    'pine-add-file-action
    'pine-add-file))
 
+;;; add note
+(defun pine-add-note()
+  (interactive)
+  (let* ((name (read-string "Name: "))
+        (tags (read-string "Tags: "))
+        (uuid (uuid-create))
+        (prefix (substring uuid 0 2))
+        (folder (concat pine:library-path "/" prefix))
+        (path (concat prefix "/" uuid ".org"))
+        (file (concat folder "/" uuid ".org")))
+    (unless (file-directory-p folder)
+      (make-directory folder))
+    (write-region "#+TITLE: \n#+STARTUP: hidestars\n" nil file)
+    (library:add name path "note" "org" tags)
+    (find-file file)
+    (goto-char 10)
+    (insert name)
+    (forward-line 3)))
+
 (defun pine-add-file-action(file)
   (let* ((pine-buffer (get-buffer-create pine:edit-buffer))
          (pine-window (display-buffer-below-selected pine-buffer '((window-height . 20)))))
