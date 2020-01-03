@@ -5,6 +5,7 @@
 (define-key global-map "\M-l" 'goto-line)
 (define-key global-map "\C-cw" 'copy-word)
 (define-key global-map "\C-cl" 'copy-line)
+(define-key global-map "\C-r" 'replace-regexp)
   
 ;;; org-mode
 (define-key global-map "\C-cl" 'org-store-link)
@@ -25,6 +26,9 @@
 
 ;;; ui modify
 (define-key global-map [f11] 'toggle-frame-fullscreen)
+
+;;; eshell
+(define-key global-map [f12] 'eshell)
 
 ;;; window move
 (define-key global-map [M-left] 'windmove-left)
