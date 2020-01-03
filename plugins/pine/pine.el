@@ -116,8 +116,8 @@
     (insert (concat "name: " (file-name-base file) "\n"))
     (insert "category: \n")
     (insert (concat "filetype: " (file-name-extension file) "\n"))
-    (insert "tags: \n")
-    (forward-line 4)
+    (insert "tags: unread\n")
+    (forward-line -4)
     (move-to-column 6)
     (local-set-key (kbd "C-c C-c") 'pine-commit-add-item)
     (local-set-key (kbd "C-c C-k") 'pine-abort-add-item)))
@@ -159,8 +159,6 @@
         (kill-buffer)
         (delete-window))
     (message "Not a pine buffer")))
-
-;;; add note
 
 ;;; add clip (download from a url)
 
@@ -211,7 +209,7 @@
     (insert (concat "category: " (aref entry 1) "\n"))
     (insert (concat "filetype: " (aref entry 2) "\n"))
     (insert (concat "tags: " (aref entry 3) "\n"))
-    (forward-line 3)
+    (forward-line -4)
     (move-to-column 6)
     (local-set-key (kbd "C-c C-c") 'pine-commit-edit-item)
     (local-set-key (kbd "C-c C-k") 'pine-abort-edit-item)
