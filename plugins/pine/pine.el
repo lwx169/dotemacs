@@ -248,7 +248,7 @@
 
 (define-derived-mode pine:library-query-mode tabulated-list-mode "Pine Library"
   "Major mode for listing items in pine library."
-  (setq tabulated-list-format [("Name"     32 t)
+  (setq tabulated-list-format [("Name"     64 t)
                                ("Category" 16 t)
                                ("Filetype" 16 t)
                                ("Tags"     16 t)])
