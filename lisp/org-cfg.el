@@ -55,7 +55,6 @@
   (setq plantuml-jar-path "~/.emacs.d/plugins/plantuml.jar")
   (setq org-plantuml-jar-path "~/.emacs.d/plugins/plantuml.jar")
   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-  (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
   (org-babel-do-load-languages 'org-babel-load-languages
                                '((plantuml . t))))
 
