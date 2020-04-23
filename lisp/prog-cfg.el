@@ -25,38 +25,39 @@
         ((looking-at "[])}]") (forward-char) (backward-sexp))
         (t (self-insert-command (or arg 1)))))
 
-;;; Highlight #if 0 to #endif  
-(defun c-if-0-font-lock (limit)  
-  (save-restriction  
-	(widen)  
-	(save-excursion  
-	  (goto-char (point-min))  
-	  (let ((depth 0) str start start-depth)  
-		(while (re-search-forward "^\\s-*#\\s-*\\(if\\|else\\|endif\\)" limit 'move)  
-		  (setq str (match-string 1))  
-		  (if (string= str "if")  
-			  (progn  
-				(setq depth (1+ depth))  
-				(when (and (null start) (looking-at "\\s-+0"))  
-				  (setq start (match-end 0)  
-						start-depth depth)))  
-			(when (and start (= depth start-depth))  
-			  (c-put-font-lock-face start (match-beginning 0) 'font-lock-comment-face)  
-			  (setq start nil))  
-			(when (string= str "endif")
-			  (setq depth (1- depth)))))  
-		(when (and start (> depth 0))  
-		  (c-put-font-lock-face start (point) 'font-lock-comment-face)))))  
+;;; Highlight #if 0 to #endif
+(defun c-if-0-font-lock (limit)
+  (save-restriction
+    (widen)
+    (save-excursion
+      (goto-char (point-min))
+      (let ((depth 0) str start start-depth)
+        (while (re-search-forward "^\\s-*#\\s-*\\(if\\|else\\|endif\\)" limit 'move)
+          (setq str (match-string 1))
+          (if (string= str "if")
+              (progn
+                (setq depth (1+ depth))
+                (when (and (null start) (looking-at "\\s-+0"))
+                  (setq start (match-end 0)
+                        start-depth depth)))
+            (when (and start (= depth start-depth))
+              (c-put-font-lock-face start (match-beginning 0) 'font-lock-comment-face)
+              (setq start nil))
+            (when (string= str "endif")
+              (setq depth (1- depth)))))
+        (when (and start (> depth 0))
+          (c-put-font-lock-face start (point) 'font-lock-comment-face)))))
   nil)
-  
-(defun c-if-0-hook ()  
-  (font-lock-add-keywords  
-   nil  
+
+(defun c-if-0-hook ()
+  (font-lock-add-keywords
+   nil
    '((c-if-0-font-lock (0 font-lock-comment-face prepend))) 'add-to-end))
 
 ;;; linum
 (use-package linum-mode
   :hook (c-mode
+         c++-mode
          emacs-lisp-mode
          sh-mode
          lua-mode
@@ -82,11 +83,15 @@
 (use-package cc-mode
   :mode
   ("\\.c\\'" . c-mode)
+  ("\\.cc\\'" . c++-mode)
+  ("\\.cpp\\'" . c++-mode)
+  ("\\.cxx\\'" . c++-mode)
   :config
   (setq c-default-style "linux")
   (setq c-basic-offset 4)
   :init
-  (add-hook 'c-mode-hook #'lsp)  
+  (add-hook 'c-mode-hook #'lsp)
+  (add-hook 'c++-mode-hook #'lsp)
   (add-hook 'c-mode-common-hook #'c-if-0-hook)
   (add-hook 'c-mode-hook #'remove-dos-eol)
   (add-hook 'c-mode-hook #'hs-minor-mode)
@@ -137,9 +142,9 @@
 ;;;; cmake
 (require 'cmake-mode)
 (setq auto-mode-alist
-	  (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-				("\\.cmake\\'" . cmake-mode))
-			  auto-mode-alist))
+      (append '(("CMakeLists\\.txt\\'" . cmake-mode)
+                ("\\.cmake\\'" . cmake-mode))
+              auto-mode-alist))
 
 ;;;; yaml
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
