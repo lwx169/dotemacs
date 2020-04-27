@@ -69,20 +69,8 @@
          nxml-mode
          yaml-mode))
 
-;;; fill-column-indicator
-(use-package fci-mode
-  :config
-  (setq fci-rule-column 120)
-  :hook (c-mode
-         c++-mode
-         emacs-lisp-mode
-         sh-mode
-         lua-mode
-         java-mode
-         ruby-mode
-         python-mode
-         rust-mode
-         groovy-mode))
+;;; fci-mode
+(setq fci-rule-column 120)
 
 ;;; lsp
 (use-package lsp-mode
