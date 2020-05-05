@@ -52,6 +52,7 @@
 ;;; plantuml
 (use-package plantuml-mode
   :config
+  (setq plantuml-default-exec-mode 'jar)
   (setq plantuml-jar-path "~/.emacs.d/plugins/plantuml.jar")
   (setq org-plantuml-jar-path "~/.emacs.d/plugins/plantuml.jar")
   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
