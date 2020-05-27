@@ -119,4 +119,7 @@
                              '((shell . t)
                                (C . t)))
 
+(setq org-hide-emphasis-markers t)
+(setq org-pretty-entities t)
+
 (provide 'org-cfg)
