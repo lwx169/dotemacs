@@ -33,12 +33,21 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(notmuch-saved-searches
+   (quote
+    ((:name "inbox" :query "tag:inbox" :key "i")
+     (:name "unread" :query "tag:unread" :key "u" :search-type tree)
+     (:name "linux-kernel" :query "to:linux-kernel@vger.kernel.org tag:unread" :key "l" :search-type tree)
+     (:name "org-mode" :query "to:emacs-orgmode@gnu.org tag:unread" :key "o" :search-type tree)
+     (:name "flagged" :query "tag:flagged" :key "f")
+     (:name "sent" :query "tag:sent" :key "t")
+     (:name "drafts" :query "tag:draft" :key "d"))))
  '(org-agenda-custom-commands
    (quote
     (("x" "Select Agenda Mode" org-agenda-select-mode "" nil))))
  '(package-selected-packages
    (quote
-    (fill-column-indicator ivy-rich rust-mode python-mode flycheck keyfreq company-lsp lsp-java lsp-javacomp lsp-javascript-typescript lsp-mode lsp-python lsp-ui company company-c-headers company-jedi company-web use-package magit magit-filenotify magit-find-file magit-popup yasnippet yasnippet-snippets toml-mode dockerfile-mode yaml-mode lua-mode cmake-mode plantuml-mode ace-jump-mode calfw calfw-org multi-term treemacs lsp-treemacs treemacs-magit groovy-mode gradle-mode protobuf-mode projectile ivy counsel swiper counsel-projectile emacsql emacsql-sqlite)))
+    (counsel-notmuch notmuch fill-column-indicator ivy-rich rust-mode python-mode flycheck keyfreq company-lsp lsp-java lsp-javacomp lsp-javascript-typescript lsp-mode lsp-python lsp-ui company company-c-headers company-jedi company-web use-package magit magit-filenotify magit-find-file magit-popup yasnippet yasnippet-snippets toml-mode dockerfile-mode yaml-mode lua-mode cmake-mode plantuml-mode ace-jump-mode calfw calfw-org multi-term treemacs lsp-treemacs treemacs-magit groovy-mode gradle-mode protobuf-mode projectile ivy counsel swiper counsel-projectile emacsql emacsql-sqlite)))
  '(setq nil t)
  '(yas-global-mode 1))
 (custom-set-faces

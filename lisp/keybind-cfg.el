@@ -20,6 +20,8 @@
 ;;; org-draft
 (define-key global-map [f8] 'org-draft)
 
+(define-key global-map [f9] 'notmuch)
+
 ;;; workspace switch
 (define-key global-map [C-f12] 'multi-term-next)
 (define-key global-map [f10] 'revert-buffer-no-confirm)
