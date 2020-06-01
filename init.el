@@ -35,19 +35,20 @@
  ;; If there is more than one, they won't work right.
  '(notmuch-saved-searches
    (quote
-    ((:name "inbox" :query "tag:inbox" :key "i")
-     (:name "unread" :query "tag:unread" :key "u" :search-type tree)
-     (:name "linux-kernel" :query "to:linux-kernel@vger.kernel.org tag:unread" :key "l" :search-type tree)
-     (:name "org-mode" :query "to:emacs-orgmode@gnu.org tag:unread" :key "o" :search-type tree)
-     (:name "flagged" :query "tag:flagged" :key "f")
-     (:name "sent" :query "tag:sent" :key "t")
-     (:name "drafts" :query "tag:draft" :key "d"))))
+    ((:name "inbox" :query "tag:inbox" :key "i" :sort-order newest-first)
+     (:name "unread" :query "tag:unread" :key "u" :sort-order newest-first :search-type tree)
+     (:name "linux-kernel" :query "to:linux-kernel@vger.kernel.org tag:unread" :key "l" :sort-order newest-first :search-type tree)
+     (:name "org-mode" :query "to:emacs-orgmode@gnu.org tag:unread" :key "o" :sort-order newest-first :search-type tree)
+     (:name "mulang" :query "path:/Mulang/ tag:unread" :key "m" :sort-order newest-first :search-type tree)
+     (:name "flagged" :query "tag:flagged" :key "f" :sort-order newest-first)
+     (:name "sent" :query "tag:sent" :key "t" :sort-order newest-first)
+     (:name "drafts" :query "tag:draft" :key "d" :sort-order newest-first))))
  '(org-agenda-custom-commands
    (quote
     (("x" "Select Agenda Mode" org-agenda-select-mode "" nil))))
  '(package-selected-packages
    (quote
-    (counsel-notmuch notmuch fill-column-indicator ivy-rich rust-mode python-mode flycheck keyfreq company-lsp lsp-java lsp-javacomp lsp-javascript-typescript lsp-mode lsp-python lsp-ui company company-c-headers company-jedi company-web use-package magit magit-filenotify magit-find-file magit-popup yasnippet yasnippet-snippets toml-mode dockerfile-mode yaml-mode lua-mode cmake-mode plantuml-mode ace-jump-mode calfw calfw-org multi-term treemacs lsp-treemacs treemacs-magit groovy-mode gradle-mode protobuf-mode projectile ivy counsel swiper counsel-projectile emacsql emacsql-sqlite)))
+    (counsel-notmuch notmuch fill-column-indicator ivy-rich rust-mode python-mode flycheck keyfreq company-lsp lsp-java lsp-javacomp lsp-javascript-typescript lsp-mode lsp-python lsp-ui company company-c-headers company-jedi company-web use-package magit magit-filenotify magit-find-file magit-popup yasnippet yasnippet-snippets toml-mode dockerfile-mode yaml-mode lua-mode cmake-mode plantuml-mode ace-jump-mode calfw calfw-org treemacs lsp-treemacs treemacs-magit groovy-mode gradle-mode protobuf-mode projectile ivy counsel swiper counsel-projectile emacsql emacsql-sqlite)))
  '(setq nil t)
  '(yas-global-mode 1))
 (custom-set-faces

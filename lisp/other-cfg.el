@@ -91,19 +91,6 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;;;; multi-term
-(require 'multi-term)
-(setq multi-term-program "/bin/bash")
-(defun my-multi-term-dedicated-toggle()
-  (interactive)
-  (if (equal "*MULTI-TERM-DEDICATED*" (buffer-name))
-	(multi-term-dedicated-toggle)
-	(progn
-	  (multi-term-dedicated-toggle)
-	  (multi-term-dedicated-select)
-	  )
-	)
-  )
 (add-hook 'term-mode-hook
           (lambda() (yas-minor-mode -1)))
 
