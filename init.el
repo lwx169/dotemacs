@@ -15,7 +15,7 @@
 (require 'ui-cfg)
 (require 'prog-cfg)
 (require 'org-cfg)
-;; (require 'mail-cfg)
+(require 'mail-cfg)
 (require 'other-cfg)
 (require 'keybind-cfg)
 (require 'os-cfg)
@@ -32,16 +32,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(notmuch-saved-searches
-   (quote
-    ((:name "inbox" :query "tag:inbox" :key "i" :sort-order newest-first)
-     (:name "unread" :query "tag:unread" :key "u" :sort-order newest-first :search-type tree)
-     (:name "linux-kernel" :query "to:linux-kernel@vger.kernel.org tag:unread" :key "l" :sort-order newest-first :search-type tree)
-     (:name "org-mode" :query "to:emacs-orgmode@gnu.org tag:unread" :key "o" :sort-order newest-first :search-type tree)
-     (:name "mulang" :query "path:/Mulang/ tag:unread" :key "m" :sort-order newest-first :search-type tree)
-     (:name "flagged" :query "tag:flagged" :key "f" :sort-order newest-first)
-     (:name "sent" :query "tag:sent" :key "t" :sort-order newest-first)
-     (:name "drafts" :query "tag:draft" :key "d" :sort-order newest-first))))
+ '
  '(org-agenda-custom-commands
    (quote
     (("x" "Select Agenda Mode" org-agenda-select-mode "" nil))))
