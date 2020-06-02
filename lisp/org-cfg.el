@@ -121,5 +121,6 @@
 
 (setq org-hide-emphasis-markers t)
 (setq org-pretty-entities t)
+(setq org-hide-leading-stars t)
 
 (provide 'org-cfg)
