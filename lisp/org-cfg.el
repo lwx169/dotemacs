@@ -10,6 +10,11 @@
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WORK(k)" "LIFE(f)" "BUY!(b)" "GAME(g)" "LERN(l)" "IDEV(v)" "WRIT(w)" "|" "DONE(d!)" "CANC(c!)")))
 
+;;;; set custom commands
+(setq org-agenda-custom-commands
+      (quote
+       (("x" "Select Agenda Mode" org-agenda-select-mode "" nil))))
+
 ;;; set prioprity level
 (setq org-highest-priority ?A)
 (setq org-lowest-priority  ?E)
