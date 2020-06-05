@@ -67,7 +67,8 @@
          rust-mode
          groovy-mode
          nxml-mode
-         yaml-mode))
+         yaml-mode
+         web-mode))
 
 ;;; fci-mode
 (setq fci-rule-column 120)
@@ -168,6 +169,12 @@
 
 ;; protobuf
 (add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode))
+
+;;;; web
+(use-package web-mode
+  :mode "\\.ftl\\'"
+  :config
+  (setq web-mode-markup-indent-offset 2))
 
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
