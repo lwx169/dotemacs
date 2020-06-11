@@ -68,7 +68,8 @@
          groovy-mode
          nxml-mode
          yaml-mode
-         web-mode))
+         web-mode
+         io-mode))
 
 ;;; fci-mode
 (setq fci-rule-column 120)
