@@ -143,6 +143,10 @@
   :init
   (add-hook 'rust-mode-hook #'lsp))
 
+;;;; io
+(use-package io-mode
+  :mode "\\.io\\'")
+
 ;;;; cmake
 (require 'cmake-mode)
 (setq auto-mode-alist
