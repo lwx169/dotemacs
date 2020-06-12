@@ -128,4 +128,7 @@
 (setq org-pretty-entities t)
 (setq org-hide-leading-stars t)
 
+;;; count all subtree todo items
+(setq org-hierarchical-todo-statistics nil)
+
 (provide 'org-cfg)
