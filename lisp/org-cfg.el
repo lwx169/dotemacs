@@ -131,4 +131,7 @@
 ;;; count all subtree todo items
 (setq org-hierarchical-todo-statistics nil)
 
+;;; 2 star as a level
+(setq org-odd-levels-only t)
+
 (provide 'org-cfg)
