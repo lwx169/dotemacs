@@ -134,4 +134,8 @@
 ;;; 2 star as a level
 (setq org-odd-levels-only t)
 
+;;; org-roam
+(setq org-roam-directory "~/Dropbox/Org/Roam")
+(add-hook 'after-init-hook 'org-roam-mode)
+
 (provide 'org-cfg)
