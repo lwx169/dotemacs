@@ -137,5 +137,6 @@
 ;;; org-roam
 (setq org-roam-directory "~/Dropbox/Org/Roam")
 (add-hook 'after-init-hook 'org-roam-mode)
+(setq org-roam-completion-system 'ivy)
 
 (provide 'org-cfg)
