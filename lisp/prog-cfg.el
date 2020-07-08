@@ -66,6 +66,7 @@
   :config
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-enable-on-type-formatting nil)
+  (setq lsp-diagnostic-package :none)
   :bind
   ("\C-cd" . lsp-ui-peek-find-definitions)
   ("\C-cr" . lsp-ui-peek-find-references)
@@ -130,6 +131,12 @@
   :mode "\\.rs\\'"
   :init
   (add-hook 'rust-mode-hook #'lsp))
+
+;;;; go
+(use-package go-mode
+  :mode "\\.go\\'"
+  :init
+  (add-hook 'go-mode-hook #'lsp))
 
 ;;;; io
 (use-package io-mode
