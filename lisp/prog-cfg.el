@@ -56,20 +56,7 @@
 
 ;;; linum
 (use-package linum-mode
-  :hook (c-mode
-         c++-mode
-         emacs-lisp-mode
-         sh-mode
-         lua-mode
-         java-mode
-         ruby-mode
-         python-mode
-         rust-mode
-         groovy-mode
-         nxml-mode
-         yaml-mode
-         web-mode
-         io-mode))
+  :hook (prog-mode))
 
 ;;; fci-mode
 (setq fci-rule-column 120)
@@ -180,6 +167,12 @@
   :mode "\\.ftl\\'"
   :config
   (setq web-mode-markup-indent-offset 2))
+
+;;;; lex/yacc
+(use-package bison-mode
+  :mode
+  ("\\.l\\'" . bison-mode)
+  ("\\.y\\'" . bison-mode))
 
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
