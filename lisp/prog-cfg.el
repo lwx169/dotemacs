@@ -64,8 +64,12 @@
 ;;; lsp
 (use-package lsp-mode
   :config
+  (setq lsp-ui-doc-enable nil)
+  (setq lsp-ui-imenu-enable nil)
+  (setq lsp-ui-peek-enable nil)
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-enable-on-type-formatting nil)
+  (setq lsp-signature-auto-activate nil)
   (setq lsp-diagnostic-package :none)
   :bind
   ("\C-cd" . lsp-ui-peek-find-definitions)
