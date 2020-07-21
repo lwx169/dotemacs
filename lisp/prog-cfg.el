@@ -179,7 +179,9 @@
 (use-package bison-mode
   :mode
   ("\\.l\\'" . bison-mode)
-  ("\\.y\\'" . bison-mode))
+  ("\\.y\\'" . bison-mode)
+  :config
+  (setq indent-tabs-mode nil))
 
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
