@@ -6,7 +6,7 @@
           (lambda () (setq truncate-lines nil)))
 (setq org-agenda-span 'day)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
-(setq org-agenda-window-setup 'current-window)
+(setq org-agenda-window-setup 'other-window)
 (setq org-startup-with-inline-images t)
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WORK(k)" "LIFE(f)" "BUY!(b)" "GAME(g)" "LERN(l)" "IDEV(v)" "WRIT(w)" "|" "DONE(d!)" "CANC(c!)")))
