@@ -71,6 +71,8 @@
   (setq lsp-enable-on-type-formatting nil)
   (setq lsp-signature-auto-activate nil)
   (setq lsp-diagnostic-package :none)
+  (setq gc-cons-threshold 100000000)
+  (setq read-process-output-max (* 1024 1024))
   :bind
   ("\C-cd" . lsp-ui-peek-find-definitions)
   ("\C-cr" . lsp-ui-peek-find-references)
