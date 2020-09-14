@@ -189,6 +189,11 @@
   :config
   (setq indent-tabs-mode nil))
 
+;;;; scheme
+(setq scheme-program-name "chez")
+(setq geiser-chez-binary "chez")
+(setq geiser-active-implementations '(chez))
+
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'company-posframe)

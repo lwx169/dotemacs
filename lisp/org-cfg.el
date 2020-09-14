@@ -123,7 +123,9 @@
 ;; org-babel
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((shell . t)
-                               (C . t)))
+                               (C . t)
+                               (scheme . t)
+                               ))
 
 (setq org-hide-emphasis-markers t)
 (setq org-pretty-entities t)
