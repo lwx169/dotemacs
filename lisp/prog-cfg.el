@@ -196,8 +196,6 @@
 
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
-(require 'company-posframe)
-(company-posframe-mode 1)
 
 ;;;; auto detect indent mode
 (defun auto-detect-indent-mode()
