@@ -196,6 +196,8 @@
 
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 ;;;; auto detect indent mode
 (defun auto-detect-indent-mode()
