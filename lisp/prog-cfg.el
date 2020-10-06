@@ -246,4 +246,20 @@
 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
+;;; add execute permission for some scripts
+(defun save-script-executable ()
+  (let ((script-shebang-patterns
+         (list "^#!.*perl.*"
+               "^#!.*sh"
+               "^#!.*bash")))
+    (if (not (file-executable-p buffer-file-name))
+        (save-excursion
+          (goto-char (point-min))
+          (dolist (shebang script-shebang-patterns)
+            (if (looking-at shebang)
+                (set-file-modes buffer-file-name
+                                (logior (file-modes buffer-file-name) #o100))))))))
+
+(add-hook 'after-save-hook 'save-script-executable)
+
 (provide 'prog-cfg)
