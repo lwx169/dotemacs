@@ -270,7 +270,8 @@
   (pop-to-buffer pine:library-list-buffer)
   (pine:library-query-mode)
   (pine:library-query-refresh)
-  (tabulated-list-print))
+  (tabulated-list-print)
+  (hl-line-mode))
 
 (defun pine-query-library()
   (interactive)
@@ -280,7 +281,8 @@
   (pine:library-query-refresh)
   (tabulated-list-print)
   (highlight-regexp pine:query-word)
-  (local-set-key (kbd "r") 'pine-query-library))
+  (local-set-key (kbd "r") 'pine-query-library)
+  (hl-line-mode))
 
 (defvar knowledge-tree:promote nil)
 (defvar knowledge-tree:curr-node-id nil)
