@@ -1,6 +1,7 @@
 ;;; pine-database
 
 (require 'pine)
+(require 'pine-utils)
 (require 'emacsql)
 (require 'emacsql-sqlite)
 
@@ -42,20 +43,20 @@
                     ([(id integer :primary-key :autoincrement)
                       (name text :not-null)
                       (path text :not-null)
+                      (size integer :not-null)
                       (category text)
                       (filetype text)
                       (tags text)
                       (meta text)])]))
 
-(defun library:add(item.name item.path item.category item.filetype item.tags)
+(defun library:add(item.name item.path item.size item.category item.filetype item.tags)
   (open-database)
   (emacsql pine:db [:insert
                     :into library
-                    [name path category filetype tags]
-                    :values ([$s1 $s2 $s3 $s4 $s5])]
-           item.name item.path item.category item.filetype item.tags)
+                    [name path size category filetype tags]
+                    :values ([$s1 $s2 $s3 $s4 $s5 $s6])]
+           item.name item.path item.size item.category item.filetype item.tags)
   (close-database))
-
 
 (defun library:edit(item.id item.name item.category item.filetype item.tags)
   (open-database)
@@ -76,9 +77,10 @@
 (defun library:query-all()
   (open-database)
   (let (query value)
-    (setq query (emacsql pine:db [:select [id name category filetype tags path]
+    (setq query (emacsql pine:db [:select [id name category filetype size tags path]
                                   :from library]))
     (dolist (element query value)
+      (setcar (nthcdr 4 element) (size2str (nth 4 element)))
       (push (list (car element) (vconcat [] (cdr element))) tabulated-list-entries)))
   (close-database))
 
@@ -86,7 +88,7 @@
   (open-database)
   (let (word query value)
     (setq word (concat "%" pine:query-word "%"))
-    (setq query (emacsql pine:db [:select [id name category filetype tags path]
+    (setq query (emacsql pine:db [:select [id name category filetype size tags path]
                                   :from library
                                   :where (or (like name $s1 )
                                              (like category $s1)
@@ -94,6 +96,7 @@
                                              (like tags $s1))]
                          word))
     (dolist (element query value)
+      (setcar (nthcdr 4 element) (size2str (nth 4 element)))
       (push (list (car element) (vconcat [] (cdr element))) tabulated-list-entries)))
   (close-database))
 
