@@ -271,6 +271,7 @@
   (pine:library-query-mode)
   (pine:library-query-refresh)
   (tabulated-list-print)
+  (linum-mode)
   (hl-line-mode))
 
 (defun pine-query-library()
@@ -282,6 +283,7 @@
   (tabulated-list-print)
   (highlight-regexp pine:query-word)
   (local-set-key (kbd "r") 'pine-query-library)
+  (linum-mode)
   (hl-line-mode))
 
 (defvar knowledge-tree:promote nil)
