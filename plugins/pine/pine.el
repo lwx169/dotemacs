@@ -175,7 +175,7 @@
   (let (entry path)
     (setq entry (tabulated-list-get-entry))
     (if entry (progn
-                (setq path (aref entry 5))
+                (setq path (aref entry 6))
                 (setq path (concat pine:library-path "/" path)))
       path)))
 
@@ -210,7 +210,7 @@
     (insert (concat "name: " (aref entry 0) "\n"))
     (insert (concat "category: " (aref entry 1) "\n"))
     (insert (concat "filetype: " (aref entry 2) "\n"))
-    (insert (concat "tags: " (aref entry 4) "\n"))
+    (insert (concat "tags: " (aref entry 5) "\n"))
     (forward-line -4)
     (move-to-column 6)
     (local-set-key (kbd "C-c C-c") 'pine-commit-edit-item)
@@ -227,8 +227,8 @@
           (tabulated-list-revert)
           (unless (file-directory-p pine:trash-path)
             (make-directory pine:trash-path))
-          (rename-file (concat pine:library-path "/" (aref entry 5))
-                       (concat pine:trash-path "/" (file-name-nondirectory (aref entry 5))))
+          (rename-file (concat pine:library-path "/" (aref entry 6))
+                       (concat pine:trash-path "/" (file-name-nondirectory (aref entry 6))))
           (message "Deleted"))
       (message "Canceled"))))
 
@@ -250,10 +250,11 @@
 
 (define-derived-mode pine:library-query-mode tabulated-list-mode "Pine Library"
   "Major mode for listing items in pine library."
-  (setq tabulated-list-format [("Name"     120 t)
+  (setq tabulated-list-format [("Name"     80 t)
                                ("Category" 16 t)
                                ("Filetype" 6 t)
                                ("Size"     10 t :right-align t)
+                               ("Add Date" 10 t)
                                ("Tags"     16 t)])
   (setq tabulated-list-sort-key (cons "Category" nil))
   (setq tabulated-list-padding 2)

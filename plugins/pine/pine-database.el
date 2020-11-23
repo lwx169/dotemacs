@@ -53,9 +53,9 @@
   (open-database)
   (emacsql pine:db [:insert
                     :into library
-                    [name path size category filetype tags]
-                    :values ([$s1 $s2 $s3 $s4 $s5 $s6])]
-           item.name item.path item.size item.category item.filetype item.tags)
+                    [name path size category filetype add_date tags]
+                    :values ([$s1 $s2 $s3 $s4 $s5 $s6 $s7])]
+           item.name item.path item.size item.category item.filetype (format-time-string "%Y-%m-%d") item.tags)
   (close-database))
 
 (defun library:edit(item.id item.name item.category item.filetype item.tags)
@@ -77,7 +77,7 @@
 (defun library:query-all()
   (open-database)
   (let (query value)
-    (setq query (emacsql pine:db [:select [id name category filetype size tags path]
+    (setq query (emacsql pine:db [:select [id name category filetype size add_date tags path]
                                   :from library]))
     (dolist (element query value)
       (setcar (nthcdr 4 element) (size2str (nth 4 element)))
@@ -88,7 +88,7 @@
   (open-database)
   (let (word query value)
     (setq word (concat "%" pine:query-word "%"))
-    (setq query (emacsql pine:db [:select [id name category filetype size tags path]
+    (setq query (emacsql pine:db [:select [id name category filetype size add_date tags path]
                                   :from library
                                   :where (or (like name $s1 )
                                              (like category $s1)
