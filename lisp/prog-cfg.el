@@ -78,6 +78,10 @@
   ("\C-cr" . lsp-ui-peek-find-references)
   ("\C-ci" . lsp-ui-peek-find-implementation))
 
+;;; flycheck
+(use-package flycheck-mode
+  :hook (prog-mode))
+
 ;;; c/c++
 (use-package cc-mode
   :mode
