@@ -39,7 +39,8 @@
   ("M-x" . counsel-M-x)
   ("\C-xb" . counsel-switch-buffer)
   ("\C-cm" . counsel-imenu)
-  ("\C-cl" . counsel-locate))
+  ("\C-cl" . counsel-locate)
+  ("\C-cs" . counsel-ag))
 
 (use-package swiper
   :bind
