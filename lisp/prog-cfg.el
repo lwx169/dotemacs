@@ -194,6 +194,11 @@
 (setq geiser-chez-binary "chez")
 (setq geiser-active-implementations '(chez))
 
+;;; haxe
+(use-package haxe-mode
+  :mode
+  ("\\.hx\\'" . haxe-mode))
+
 ;;;;; company
 (add-hook 'after-init-hook 'global-company-mode)
 (use-package company-box
