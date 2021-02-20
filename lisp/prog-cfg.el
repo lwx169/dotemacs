@@ -96,6 +96,10 @@
   (add-hook 'c-mode-hook #'hs-minor-mode)
   (add-hook 'c-mode-hook #'hide-ifdef-mode))
 
+(use-package ccls
+  :config
+  (setq ccls-executable "/usr/bin/ccls"))
+
 ;;; java
 (use-package lsp-java
   :init
