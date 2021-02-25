@@ -9,7 +9,7 @@
 (setq org-agenda-window-setup 'other-window)
 (setq org-startup-with-inline-images t)
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WORK(k)" "LIFE(f)" "BUY!(b)" "GAME(g)" "LERN(l)" "IDEV(v)" "WRIT(w)" "|" "DONE(d!)" "CANC(c!)")))
+      '((sequence "TODO(t)" "WORK(k)" "LIFE(f)" "BUY!(b)" "GAME(g)" "LERN(l)" "IDEV(v)" "WRIT(w)" "READ(r!)" "|" "DONE(d!)" "CANC(c!)")))
 
 ;;;; set custom commands
 (setq org-agenda-custom-commands
