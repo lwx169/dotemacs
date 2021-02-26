@@ -124,9 +124,7 @@
 ;;; ruby
 (use-package ruby-mode
   :mode
-  ("\\.rb\\'" . ruby-mode)
-  :init
-  (add-hook 'ruby-mode-hook #'lsp))
+  ("\\.rb\\'" . ruby-mode))
 
 ;;; python
 (use-package python
