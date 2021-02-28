@@ -4,6 +4,7 @@
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 (add-hook 'org-mode-hook
           (lambda () (setq truncate-lines nil)))
+(add-hook 'org-agenda-mode-hook 'hl-line-mode)
 (setq org-agenda-span 'week)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-agenda-window-setup 'other-window)
