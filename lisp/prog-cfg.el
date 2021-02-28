@@ -126,6 +126,10 @@
   :mode
   ("\\.rb\\'" . ruby-mode))
 
+(use-package inf-ruby
+  :hook
+  (ruby-mode . inf-ruby-minor-mode))
+
 ;;; python
 (use-package python
   :mode
