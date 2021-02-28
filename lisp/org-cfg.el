@@ -4,7 +4,7 @@
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 (add-hook 'org-mode-hook
           (lambda () (setq truncate-lines nil)))
-(setq org-agenda-span 'day)
+(setq org-agenda-span 'week)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-agenda-window-setup 'other-window)
 (setq org-startup-with-inline-images t)
@@ -168,5 +168,10 @@
         org-roam-server-network-label-truncate t
         org-roam-server-network-label-truncate-length 60
         org-roam-server-network-label-wrap-length 20))
+
+;;; valign
+(use-package valign
+  :hook
+  (org-mode . valign-mode))
 
 (provide 'org-cfg)
