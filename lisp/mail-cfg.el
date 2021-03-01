@@ -1,3 +1,9 @@
+;; -*- emacs-lisp -*-
+
+;; do not verify sign
+(setq notmuch-crypto-process-mime nil)
+
+;; searches
 (setq notmuch-saved-searches
       (quote
        ((:name "inbox" :query "tag:inbox" :key "i" :sort-order newest-first)
@@ -8,7 +14,7 @@
         (:name "ceph" :query "to:*@ceph.io tag:unread" :key "c" :sort-order newest-first :search-type tree)
         (:name "mulang" :query "path:/Mulang/ tag:unread" :key "m" :sort-order newest-first :search-type tree)
         (:name "tracked" :query "tag:tracked" :key "t" :sort-order newest-first :search-type tree)
-        (:name "later" :query "tag:later" :key "l" :sort-order newest-first)
+        (:name "later" :query "tag:later" :key "r" :sort-order newest-first)
         (:name "flagged" :query "tag:flagged" :key "f" :sort-order newest-first)
         (:name "sent" :query "tag:sent" :key "s" :sort-order newest-first)
         (:name "drafts" :query "tag:draft" :key "d" :sort-order newest-first))))
