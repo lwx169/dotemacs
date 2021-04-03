@@ -5,9 +5,11 @@
 (add-hook 'org-mode-hook
           (lambda () (setq truncate-lines nil)))
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
-(setq org-agenda-span 'week)
+(setq org-agenda-span 'day)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-agenda-window-setup 'other-window)
+(setq org-agenda-start-with-log-mode t)
+(setq org-agenda-start-with-clockreport-mode t)
 (setq org-startup-with-inline-images t)
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WORK(k)" "LIFE(f)" "BUY!(b)" "GAME(g)" "LERN(l)" "IDEV(v)" "WRIT(w)" "READ(r!)" "|" "DONE(d!)" "CANC(c!)")))
@@ -138,37 +140,6 @@
 
 ;;; 2 star as a level
 (setq org-odd-levels-only t)
-
-;; org-roam
-(use-package org-roam
-  :ensure t
-  :hook
-  (after-init . org-roam-mode)
-  :custom
-  (org-roam-directory "~/Org/Roam")
-  :bind
-  (:map org-roam-mode-map
-        ("C-c n l" . org-roam)
-        ("C-c n f" . org-roam-find-file)
-        ("C-c n g" . org-roam-graph)
-   :map org-mode-map
-        ("C-c n i" . org-roam-insert)
-        ("C-c n I" . org-roam-insert-immediate)))
-
-(use-package org-roam-server
-  :ensure t
-  :config
-  (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 7788
-        org-roam-server-authenticate nil
-        org-roam-server-export-inline-images t
-        org-roam-server-serve-files nil
-        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-        org-roam-server-network-poll t
-        org-roam-server-network-arrows nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20))
 
 ;;; valign
 (use-package valign
