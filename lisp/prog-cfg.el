@@ -11,8 +11,8 @@
 
 ;;; yasnippet
 (use-package yasnippet
-  :custom
-  (setq yas-global-mode 1))
+  :init
+  (add-hook 'prog-mode-hook #'yas-minor-mode))
 
 ;;; magit
 (require 'magit)
