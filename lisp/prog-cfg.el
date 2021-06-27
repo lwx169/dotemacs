@@ -70,6 +70,9 @@
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-enable-on-type-formatting nil)
   (setq lsp-signature-auto-activate nil)
+  (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
+  (setq lsp-completion-show-detail nil)
+  (setq lsp-completion-show-kind nil)
   (setq lsp-diagnostic-package :none)
   (setq gc-cons-threshold 100000000)
   (setq read-process-output-max (* 1024 1024))
@@ -210,8 +213,18 @@
   ("\\.hx\\'" . haxe-mode))
 
 ;;;;; company
-(add-hook 'after-init-hook 'global-company-mode)
+(use-package company
+  :config
+  (setq company-idle-delay 0.1)
+  (setq company-minimum-prefix-length 2)
+  (setq company-tooltip-minimum-width 60)
+  (setq company-tooltip-maximum-width 60))
+
+;; With use-package:
 (use-package company-box
+  :config
+  (setq company-box-doc-enable nil)
+  (setq company-box-scrollbar nil)
   :hook (company-mode . company-box-mode))
 
 ;;;; auto detect indent mode
