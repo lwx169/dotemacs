@@ -79,7 +79,8 @@
   :bind
   ("\C-cd" . lsp-ui-peek-find-definitions)
   ("\C-cr" . lsp-ui-peek-find-references)
-  ("\C-ci" . lsp-ui-peek-find-implementation))
+  ("\C-ci" . lsp-ui-peek-find-implementation)
+  ("\C-cx" . lsp-execute-code-action))
 
 ;;; flycheck
 (use-package flycheck-mode
