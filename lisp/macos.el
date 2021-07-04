@@ -12,5 +12,6 @@
 ;;; set execute path
 (setq exec-path (append '("/usr/local/bin") exec-path))
 (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+(setenv "PATH" (concat "/opt/homebrew/bin:" (getenv "PATH")))
 
 (provide 'macos)
