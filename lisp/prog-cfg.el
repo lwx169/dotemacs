@@ -17,14 +17,6 @@
 ;;; magit
 (require 'magit)
 
-;;; jump between paren
-(defun my-match-paren (arg)
-  "Press % to jump to matching paren -- lgfang"
-  (interactive "p")
-  (cond ((looking-at "[([{]") (forward-sexp) (backward-char))
-        ((looking-at "[])}]") (forward-char) (backward-sexp))
-        (t (self-insert-command (or arg 1)))))
-
 ;;; Highlight #if 0 to #endif
 (defun c-if-0-font-lock (limit)
   (save-restriction

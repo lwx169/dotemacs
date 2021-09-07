@@ -37,7 +37,4 @@
 (define-key global-map [M-up] 'windmove-up)
 (define-key global-map [M-down] 'windmove-down)
 
-;;; match paren
-(define-key global-map "$" 'my-match-paren)
-
 (provide 'keybind-cfg)
