@@ -229,13 +229,13 @@
           (count-matches "^	" (point-min) (point-max) nil))
     (setq sit-whitespace-count
           (count-matches "^ [^\*]" (point-min) (point-max) nil))
-    (if (>= sit-tabs-count sit-whitespace-count)
+    (if (> sit-tabs-count sit-whitespace-count)
         (progn
-          (message "tabs(%d) >= whitespaces(%d), indent with tab"
+          (message "tabs(%d) > whitespaces(%d), indent with tab"
                    sit-tabs-count sit-whitespace-count)
           (setq indent-tabs-mode t))
         (progn
-          (message "tabs(%d) < whitespaces(%d), indent with whitespace"
+          (message "tabs(%d) =< whitespaces(%d), indent with whitespace"
                    sit-tabs-count sit-whitespace-count)
           (setq indent-tabs-mode nil)))
     )
