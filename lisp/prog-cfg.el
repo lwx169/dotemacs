@@ -126,6 +126,10 @@
   :hook
   (ruby-mode . inf-ruby-minor-mode))
 
+(use-package ruby-end
+  :hook
+  (ruby-mode . ruby-end-mode))
+
 ;;; python
 (use-package python
   :mode
