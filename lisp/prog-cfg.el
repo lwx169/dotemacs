@@ -76,7 +76,9 @@
 
 ;;; flycheck
 (use-package flycheck-mode
-  :hook (prog-mode))
+  :hook (prog-mode)
+  :config
+  (setq flycheck-display-errors-function nil))
 
 ;;; c/c++
 (use-package cc-mode
