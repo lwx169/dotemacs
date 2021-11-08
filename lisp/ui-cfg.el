@@ -11,6 +11,11 @@
 (setq column-number-mode t)
 (display-time-mode)
 
+;;; doom-modeline
+(use-package doom-modeline
+  :init
+  (doom-modeline-mode 1))
+
 ;;; window split
 (setq split-width-threshold nil)
 (setq split-height-threshold 0)
