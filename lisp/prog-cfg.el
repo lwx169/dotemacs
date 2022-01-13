@@ -205,7 +205,7 @@
 ;;;; scheme
 ;; (setq scheme-program-name "chez")
 ;; (setq geiser-chez-binary "chez")
-(setq geiser-active-implementations '(chez))
+(setq geiser-active-implementations '(racket))
 
 ;;; haxe
 (use-package haxe-mode
