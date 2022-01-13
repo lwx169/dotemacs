@@ -148,6 +148,9 @@
   :init
   (add-hook 'rust-mode-hook #'lsp))
 
+(with-eval-after-load 'rust-mode
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
 ;;;; go
 (use-package go-mode
   :mode "\\.go\\'"
