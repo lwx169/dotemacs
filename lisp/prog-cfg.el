@@ -273,6 +273,8 @@
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(add-hook 'emacs-lisp-mode-hook       #'rainbow-delimiters-mode)
+(add-hook 'scheme-mode-hook           #'rainbow-delimiters-mode)
 
 ;;; highlight TODO
 (use-package hl-todo
