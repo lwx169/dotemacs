@@ -115,7 +115,7 @@
   :mode
   ("\\.lua\\'" . lua-mode)
   :custom
-  (lua-indent-level 2 "Set indent level to 2 whitespace"))
+  (lua-indent-level 4 "Set indent level to 2 whitespace"))
 
 ;;; perl
 (use-package perl-mode
@@ -124,7 +124,7 @@
   ("\\.pm\\'" . perl-mode)
   ("\\.t\\'" . perl-mode)
   :custom
-  (perl-indent-level 2 "Set indent level to 2 whitespace"))
+  (perl-indent-level 4 "Set indent level to 2 whitespace"))
 
 ;;; ruby
 (use-package ruby-mode
