@@ -6,6 +6,7 @@
 (define-key global-map "\C-cw" 'copy-word)
 (define-key global-map "\C-cl" 'copy-line)
 (define-key global-map "\C-r" 'replace-regexp)
+(define-key global-map "\C-c\C-c" 'whitespace-cleanup)
   
 ;;; org-mode
 (define-key global-map "\C-cl" 'org-store-link)
