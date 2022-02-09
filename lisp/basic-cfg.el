@@ -5,7 +5,7 @@
 (show-paren-mode t)
 (setq-default fill-column 100)
 (setq ring-bell-function 'ignore)
-(desktop-save-mode t)
+;; (desktop-save-mode t)
 
 ;;; tab width set
 (setq-default tab-width 4)
