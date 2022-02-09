@@ -14,6 +14,7 @@
 (require 'basic-cfg)
 (require 'ui-cfg)
 (require 'prog-cfg)
+(require 'eshell-cfg)
 (require 'org-cfg)
 (require 'mail-cfg)
 (require 'other-cfg)
