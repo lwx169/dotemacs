@@ -18,9 +18,6 @@
 (define-key global-map [C-down] 'c-end-of-defun)
 (define-key global-map [f1] 'man-follow)
 
-;;; eshell
-(define-key global-map [f2] 'eshell)
-
 ;;; org-draft
 (define-key global-map [f8] 'org-draft)
 
@@ -31,6 +28,10 @@
 
 ;;; ui modify
 (define-key global-map [f11] 'toggle-frame-fullscreen)
+
+;;; eshell
+(define-key global-map [M-f12] 'eshell)
+
 
 ;;; window move
 (define-key global-map [M-left] 'windmove-left)
