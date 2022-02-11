@@ -42,10 +42,6 @@
   ("\C-cl" . counsel-locate)
   ("\C-cs" . counsel-ag))
 
-(use-package swiper
-  :bind
-  ("\C-s" . swiper))
-
 ;;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
