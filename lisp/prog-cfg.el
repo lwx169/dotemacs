@@ -94,6 +94,15 @@
   (add-hook 'c-mode-hook #'hs-minor-mode)
   (add-hook 'c-mode-hook #'hide-ifdef-mode))
 
+
+;;; update citre related things
+(defun citre-update-all ()
+  (interactive)
+  (message "update ctags")
+  (citre-update-this-tags-file)
+  (message "update gtags")
+  (citre-global-update-database))
+
 ;;; citre
 (use-package citre
   :defer t
@@ -102,6 +111,7 @@
   (global-set-key (kbd "M-.") 'citre-jump)
   (global-set-key (kbd "M-,") 'citre-jump-back)
   (global-set-key (kbd "M-\\") 'citre-peek)
+  (global-set-key (kbd "C-c u") 'citre-update-all)
   :config
   (setq
    citre-project-root-function #'projectile-project-root
