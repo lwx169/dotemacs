@@ -7,7 +7,10 @@
 (define-key global-map "\C-cl" 'copy-line)
 (define-key global-map "\C-r" 'replace-regexp)
 (define-key global-map "\C-c\C-c" 'whitespace-cleanup)
-  
+
+;;; navigation
+(define-key global-map "\C-o" 'avy-goto-char)
+
 ;;; org-mode
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
