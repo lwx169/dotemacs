@@ -32,11 +32,14 @@
 ;;; eshell
 (define-key global-map [M-f12] 'eshell)
 
-
 ;;; window move
 (define-key global-map [M-left] 'windmove-left)
 (define-key global-map [M-right] 'windmove-right)
 (define-key global-map [M-up] 'windmove-up)
 (define-key global-map [M-down] 'windmove-down)
+
+;;; hideshow
+(define-key global-map "\C-c]" 'hs-hide-block)
+(define-key global-map "\C-c[" 'hs-show-block)
 
 (provide 'keybind-cfg)
