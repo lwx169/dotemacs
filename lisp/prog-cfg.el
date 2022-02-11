@@ -89,21 +89,38 @@
   (setq c-default-style "linux")
   (setq c-basic-offset 4)
   :init
-  (add-hook 'c-mode-hook #'lsp)
-  (add-hook 'c++-mode-hook #'lsp)
   (add-hook 'c-mode-common-hook #'c-if-0-hook)
   (add-hook 'c-mode-hook #'remove-dos-eol)
   (add-hook 'c-mode-hook #'hs-minor-mode)
   (add-hook 'c-mode-hook #'hide-ifdef-mode))
 
-(use-package ccls
-  :config
-  (setq ccls-executable "/usr/bin/ccls"))
-
-;;; java
-(use-package lsp-java
+;;; citre
+(use-package citre
+  :defer t
   :init
-  (add-hook 'java-mode-hook #'lsp))
+  (require 'citre-config)
+  (global-set-key (kbd "M-.") 'citre-jump)
+  (global-set-key (kbd "M-,") 'citre-jump-back)
+  (global-set-key (kbd "M-\\") 'citre-peek)
+  :config
+  (setq
+   citre-project-root-function #'projectile-project-root
+   citre-default-create-tags-file-location 'global-cache
+   citre-use-project-root-when-creating-tags t
+   citre-prompt-language-for-ctags-command t
+   ;; By default, when you open any file, and a tags file can be found for it,
+   ;; `citre-mode' is automatically enabled.  If you only want this to work for
+   ;; certain modes (like `prog-mode'), set it like this.
+   citre-auto-enable-citre-mode-modes '(prog-mode)))
+
+(use-package citre-global
+  :ensure nil
+  :defer t
+  :init
+  (global-set-key (kbd "M-?") 'citre-jump-to-reference)
+  (with-eval-after-load 'citre-peek
+    (define-key citre-peek-keymap (kbd "M-l r")
+      'citre-peek-through-references)))
 
 (require 'gradle-mode)
 (add-to-list 'auto-mode-alist '("\\.gradle\\'" . gradle-mode))
@@ -147,11 +164,7 @@
   (setq python-indent-offset 4)
   (setq python-indent-guess-indent-offset nill))
 
-;;(autoload 'jedi:setup "jedi" nil t)
-;;(add-hook 'python-mode-hook 'jedi:setup)
-;;(setq jedi:complete-on-dot t)
-
-;;;; rust
+;;; rust
 (use-package rust-mode
   :mode "\\.rs\\'"
   :init
@@ -160,7 +173,7 @@
 (with-eval-after-load 'rust-mode
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
-;;;; go
+;;; go
 (use-package go-mode
   :mode "\\.go\\'"
   :init
@@ -221,22 +234,17 @@
   :mode
   ("\\.hx\\'" . haxe-mode))
 
-;;;;; company
+;;; company
 (use-package company
   :config
   (setq company-idle-delay 0.1)
   (setq company-minimum-prefix-length 2)
   (setq company-tooltip-minimum-width 60)
-  (setq company-tooltip-maximum-width 60))
+  (setq company-tooltip-maximum-width 60)
+  :hook
+  (prog-mode . company-mode))
 
-;; With use-package:
-(use-package company-box
-  :config
-  (setq company-box-doc-enable nil)
-  (setq company-box-scrollbar nil)
-  :hook (company-mode . company-box-mode))
-
-;;;; auto detect indent mode
+;;; auto detect indent mode
 (defun auto-detect-indent-mode()
   (interactive)
   (let ((sit-tabs-count       0)
@@ -253,11 +261,7 @@
         (progn
           (message "tabs(%d) =< whitespaces(%d), indent with whitespace"
                    sit-tabs-count sit-whitespace-count)
-          (setq indent-tabs-mode nil)))
-    )
-  )
-
-(add-hook 'c-mode-hook 'auto-detect-indent-mode)
+          (setq indent-tabs-mode nil)))))
 
 (defun switch-indent-mode()
   (interactive)
@@ -265,10 +269,10 @@
       (progn
         (setq indent-tabs-mode nil)
         (message "switch: %s" "indent with whitespace"))
-      (progn
-        (setq indent-tabs-mode t)
-        (message "switch: %s" "indent with tab"))
-      ))
+    (progn
+      (setq indent-tabs-mode t)
+      (message "switch: %s" "indent with tab"))
+    ))
 
 ;;; xref
 (defun xref-kill-window()
