@@ -77,6 +77,8 @@
 ;;; flycheck
 (use-package flycheck-mode
   :hook (prog-mode))
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
 
 ;;; c/c++
 (use-package cc-mode
