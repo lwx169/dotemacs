@@ -62,4 +62,29 @@
   ("\C-cps" . counsel-projectile-switch-project)
   ("\C-cpp" . counsel-projectile-git-grep))
 
+;;; neotree
+(defun neotree-zoom-in ()
+  "Zoom in neotree window."
+  (interactive)
+  (setq neo-window-width (- neo-window-width 2))
+  (neo-window--zoom 'zoom-in))
+
+(defun neotree-zoom-out ()
+  "Zoom out neotree window."
+  (interactive)
+  (setq neo-window-width (+ neo-window-width 2))
+  (neo-window--zoom 'zoom-out))
+
+(use-package neotree
+  :bind
+  (([f2] . neotree-toggle)
+   :map neotree-mode-map
+   ("[" . neotree-zoom-in)
+   ("]" . neotree-zoom-out))
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  :custom
+  (neo-window-width 36 "increase window width"))
+
 (provide 'basic-cfg)
+;;; basic-cfg.el ends here
