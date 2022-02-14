@@ -14,6 +14,8 @@
 ;;; doom-modeline
 (use-package doom-modeline
   :init
+  (advice-add #'doom-modeline-update-flycheck-icon :override #'ignore)
+  (advice-add #'doom-modeline-update-flycheck-text :override #'ignore)
   (doom-modeline-mode 1))
 
 ;;; window split
