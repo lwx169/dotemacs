@@ -134,7 +134,8 @@
 
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
-;;(setq org-hide-block-startup t)
+(setq org-startup-folded 'content)
+(setq org-hide-block-startup t)
 
 ;;; count all subtree todo items
 (setq org-hierarchical-todo-statistics nil)
