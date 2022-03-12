@@ -46,9 +46,8 @@
    nil
    '((c-if-0-font-lock (0 font-lock-comment-face prepend))) 'add-to-end))
 
-;;; linum
-(use-package linum-mode
-  :hook (prog-mode))
+;;; line number
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;;; fci-mode
 (setq fci-rule-column 120)
