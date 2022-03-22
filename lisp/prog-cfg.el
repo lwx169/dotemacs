@@ -124,7 +124,7 @@
    ;; certain modes (like `prog-mode'), set it like this.
    citre-auto-enable-citre-mode-modes '(prog-mode))
   :custom
-  (citre-enable-imenu-integration nil "disable imenu interactive"))
+  (citre-peek-file-content-height 24 "set citre peek content height"))
 
 (use-package citre-global
   :ensure nil
