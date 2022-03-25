@@ -124,7 +124,7 @@
    ;; certain modes (like `prog-mode'), set it like this.
    citre-auto-enable-citre-mode-modes '(prog-mode))
   :custom
-  (citre-peek-file-content-height 32 "set citre peek content height")
+  (citre-peek-file-content-height 16 "set citre peek content height")
   :custom-face
   (citre-peek-border-face ((t (:extend t :background "#262833" :overline t)))))
 
@@ -147,7 +147,7 @@
   :mode
   ("\\.lua\\'" . lua-mode)
   :custom
-  (lua-indent-level 4 "Set indent level to 2 whitespace"))
+  (lua-indent-level 2 "Set indent level to 2 whitespace"))
 
 ;;; perl
 (use-package perl-mode
@@ -156,7 +156,7 @@
   ("\\.pm\\'" . perl-mode)
   ("\\.t\\'" . perl-mode)
   :custom
-  (perl-indent-level 4 "Set indent level to 2 whitespace"))
+  (perl-indent-level 4 "Set indent level to 4 whitespace"))
 
 ;;; ruby
 (use-package ruby-mode
