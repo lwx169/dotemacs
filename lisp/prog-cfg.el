@@ -124,9 +124,7 @@
    ;; certain modes (like `prog-mode'), set it like this.
    citre-auto-enable-citre-mode-modes '(prog-mode))
   :custom
-  (citre-peek-file-content-height 16 "set citre peek content height")
-  :custom-face
-  (citre-peek-border-face ((t (:extend t :background "#262833" :overline t)))))
+  (citre-peek-file-content-height 16 "set citre peek content height"))
 
 (use-package citre-global
   :ensure nil
