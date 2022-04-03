@@ -110,6 +110,6 @@
   ("0" (text-scale-set 0) :bind nil :exit t))
 
 ;;;; pine
-(require 'pine)
+;; (require 'pine)
 
 (provide 'other-cfg)
