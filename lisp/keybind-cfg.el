@@ -27,7 +27,7 @@
 (define-key global-map [f9] 'notmuch)
 
 ;;; workspace switch
-(define-key global-map [f10] 'revert-buffer-no-confirm)
+(define-key global-map [f5] 'revert-buffer-no-confirm)
 
 ;;; ui modify
 (define-key global-map [f11] 'toggle-frame-fullscreen)

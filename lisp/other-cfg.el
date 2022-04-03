@@ -109,6 +109,19 @@
   ("-" text-scale-decrease "-")
   ("0" (text-scale-set 0) :bind nil :exit t))
 
+;;; elfeed
+(use-package elfeed
+  :config
+  (setq elfeed-curl-extra-arguments '("-xhttp://127.0.0.1:2080"))
+  :bind
+  ([f10] . elfeed))
+
+(use-package elfeed-org
+  :init
+  (elfeed-org)
+  :config
+  (setq rmh-elfeed-org-files (list "~/Rss/feeds.org")))
+
 ;;;; pine
 ;; (require 'pine)
 
