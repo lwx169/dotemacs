@@ -113,6 +113,7 @@
 (use-package elfeed
   :config
   (setq elfeed-curl-extra-arguments '("-xhttp://127.0.0.1:2080"))
+  (setq url-queue-timeout 30)
   :bind
   ([f10] . elfeed))
 
