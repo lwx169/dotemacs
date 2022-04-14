@@ -13,6 +13,7 @@
 (setq org-agenda-start-with-log-mode t)
 (setq org-agenda-start-with-clockreport-mode t)
 (setq org-startup-with-inline-images t)
+(setq org-startup-indented t)
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WORK(k)" "LIFE(f)" "BUY!(b)" "GAME(g)" "LERN(l)" "IDEV(v)" "WRIT(w)" "READ(r!)" "|" "DONE(d!)" "CANC(c!)")))
 
@@ -139,9 +140,6 @@
 
 ;;; count all subtree todo items
 (setq org-hierarchical-todo-statistics nil)
-
-;;; 2 star as a level
-(setq org-odd-levels-only t)
 
 ;;; valign
 (use-package valign
