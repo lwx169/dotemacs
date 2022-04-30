@@ -247,6 +247,11 @@
   :mode
   ("\\.hx\\'" . haxe-mode))
 
+;;; elvish
+(use-package elvish-mode
+  :mode
+  ("\\.elv\\'" . elvish-mode))
+
 ;;; company
 (use-package company
   :config
