@@ -95,46 +95,6 @@
   (add-hook 'c-mode-hook #'hs-minor-mode)
   (add-hook 'c-mode-hook #'hide-ifdef-mode))
 
-
-;;; update citre related things
-(defun citre-update-all ()
-  (interactive)
-  (message "update ctags")
-  (citre-update-this-tags-file)
-  (message "update gtags")
-  (citre-global-update-database))
-
-;;; citre
-(use-package citre
-  :defer t
-  :init
-  (require 'citre-config)
-  (global-set-key (kbd "M-.") 'citre-jump)
-  (global-set-key (kbd "M-,") 'citre-jump-back)
-  (global-set-key (kbd "M-\\") 'citre-peek)
-  (global-set-key (kbd "C-c u") 'citre-update-all)
-  :config
-  (setq
-   citre-project-root-function #'projectile-project-root
-   citre-default-create-tags-file-location 'global-cache
-   citre-use-project-root-when-creating-tags t
-   citre-prompt-language-for-ctags-command t
-   ;; By default, when you open any file, and a tags file can be found for it,
-   ;; `citre-mode' is automatically enabled.  If you only want this to work for
-   ;; certain modes (like `prog-mode'), set it like this.
-   citre-auto-enable-citre-mode-modes '(prog-mode))
-  :custom
-  (citre-peek-file-content-height 16 "set citre peek content height"))
-
-(use-package citre-global
-  :ensure nil
-  :defer t
-  :init
-  (global-set-key (kbd "M-?") 'citre-jump-to-reference)
-  (with-eval-after-load 'citre-peek
-    (define-key citre-peek-keymap (kbd "M-l r")
-      'citre-peek-through-references)))
-
 (require 'gradle-mode)
 (add-to-list 'auto-mode-alist '("\\.gradle\\'" . gradle-mode))
 (require 'groovy-mode)
