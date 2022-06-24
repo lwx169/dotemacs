@@ -11,6 +11,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/plugins/")
 (add-to-list 'load-path "~/.emacs.d/plugins/pine")
+(add-to-list 'load-path "~/.emacs.d/plugins/lsp-bridge")
 
 ;;; Load config
 (require 'basic-cfg)

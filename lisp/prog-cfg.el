@@ -191,6 +191,18 @@
   :mode
   ("\\.elv\\'" . elvish-mode))
 
+;;; lsp-bridge
+(use-package lsp-bridge
+  :custom
+  (acm-enable-doc nil "disable doc")
+  (acm-enable-search-words nil "disable search words")
+  :bind
+  ("M-." . 'lsp-bridge-find-define)
+  ("M-," . 'lsp-bridge-return-from-def)
+  ("M-?" . 'lsp-bridge-find-references)
+  :hook
+  (prog-mode . lsp-bridge-mode))
+
 ;;; auto detect indent mode
 (defun auto-detect-indent-mode()
   (interactive)
