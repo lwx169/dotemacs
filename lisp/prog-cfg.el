@@ -212,16 +212,6 @@
   :mode
   ("\\.elv\\'" . elvish-mode))
 
-;;; company
-(use-package company
-  :config
-  (setq company-idle-delay 0.1)
-  (setq company-minimum-prefix-length 2)
-  (setq company-tooltip-minimum-width 60)
-  (setq company-tooltip-maximum-width 60)
-  :hook
-  (prog-mode . company-mode))
-
 ;;; auto detect indent mode
 (defun auto-detect-indent-mode()
   (interactive)
