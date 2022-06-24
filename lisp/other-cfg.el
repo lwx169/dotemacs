@@ -114,6 +114,7 @@
   :config
   (setq elfeed-curl-extra-arguments '("-xhttp://127.0.0.1:2080"))
   (setq url-queue-timeout 30)
+  (setq elfeed-db-directory "~/Rss/db")
   (setq elfeed-search-filter "+unread -video -nsfw")
   :bind
   ([f10] . elfeed))
