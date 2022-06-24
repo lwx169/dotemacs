@@ -52,27 +52,6 @@
 ;;; fci-mode
 (setq fci-rule-column 120)
 
-;;; lsp
-(use-package lsp-mode
-  :config
-  (setq lsp-ui-doc-enable nil)
-  (setq lsp-ui-imenu-enable nil)
-  (setq lsp-ui-peek-enable nil)
-  (setq lsp-ui-sideline-enable nil)
-  (setq lsp-enable-on-type-formatting nil)
-  (setq lsp-signature-auto-activate nil)
-  (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
-  (setq lsp-completion-show-detail nil)
-  (setq lsp-completion-show-kind nil)
-  (setq lsp-diagnostic-package :none)
-  (setq gc-cons-threshold 100000000)
-  (setq read-process-output-max (* 1024 1024))
-  :bind
-  ("\C-cd" . lsp-ui-peek-find-definitions)
-  ("\C-cr" . lsp-ui-peek-find-references)
-  ("\C-ci" . lsp-ui-peek-find-implementation)
-  ("\C-cx" . lsp-execute-code-action))
-
 ;;; flycheck
 (use-package flycheck-mode
   :hook (prog-mode))
