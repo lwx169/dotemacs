@@ -7,7 +7,6 @@
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 (setq org-agenda-span 'day)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
-(setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-window-setup 'other-window)
 (setq org-agenda-start-with-log-mode t)
