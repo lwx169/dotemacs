@@ -11,7 +11,6 @@
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-window-setup 'other-window)
 (setq org-agenda-start-with-log-mode t)
-(setq org-agenda-start-with-clockreport-mode t)
 (setq org-startup-with-inline-images t)
 (setq org-startup-indented t)
 (setq org-todo-keywords
