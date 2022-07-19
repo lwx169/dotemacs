@@ -202,6 +202,8 @@
   ("M-?" . 'lsp-bridge-find-references)
   :hook
   (emacs-lisp-mode . lsp-bridge-mode)
+  (c-mode . lsp-bridge-mode)
+  (c++-mode . lsp-bridge-mode)
   (python-mode . lsp-bridge-mode)
   (go-mode . lsp-bridge-mode)
   (rust-mode . lsp-bridge-mode))
